@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../redux/WeatherSlice";
+import data from "../../Assets.json"
+
 
 export const SearchBar = () => {
   const [value, setValue] = useState("");
@@ -10,18 +12,18 @@ export const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchData(value));
-    console.log(value)
+    // console.log(value)
     setValue("");
   };
   return (
-    <section className="">
-      <div className="flex gap-2 flex-col items-start md:items-center">
+    <section className="px-4">
+      <div className="flex flex-col items-center md:items-center ">
         <form onSubmit={handleSubmit} className="relative">
-          <p className="uppercase text-xs text-gray-400 pl-1">Location</p>
+          <p className="uppercase text-xs text-gray-400 pl-1 pb-2">Location</p>
           <input
             onChange={(e) => setValue(e.target.value)}
-            className="border-[1px] shadow border-neutral-200 py-1 px-2
-            rounded"
+            className="border-[1px] shadow border-neutral-200 py-2 px-2
+            min-w-[16em] rounded"
             type="text"
             value={value}
             placeholder="Search location..."
@@ -30,7 +32,7 @@ export const SearchBar = () => {
             <i
               type="submit"
               onClick={handleSubmit}
-              className="fa-solid fa-magnifying-glass"
+              className="fa-solid text-gray-400 fa-magnifying-glass"
             ></i>
           </button>
         </form>
