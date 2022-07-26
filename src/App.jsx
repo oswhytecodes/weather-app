@@ -5,13 +5,14 @@ import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Weather } from "./components/Weather/Weather";
 import { Footer } from "./components/Footer/Footer";
 
-
 function App() {
   return (
     <div className="App">
       <Header />
-      <SearchBar />
-      <Weather />
+      <div>
+        <SearchBar />
+        <Weather />
+      </div>
       <Footer />
     </div>
   );
