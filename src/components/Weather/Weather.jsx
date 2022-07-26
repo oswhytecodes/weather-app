@@ -13,14 +13,12 @@ export const Weather = () => {
   const desc = useSelector((state) => state.weather.desc);
   const name = useSelector((state) => state.weather.name);
   const city = useSelector((state) => state.weather.cityName);
-  // console.log("Thing I am mapping", desc);
 
   // Today's date from stack overflow
   var today = new Date();
   var day = String(today.getDate()).padStart(2, "0");
   var month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   var year = today.getFullYear();
-
   today = `${month} / ${day} / ${year} `;
 
   // dispatch data
@@ -28,13 +26,12 @@ export const Weather = () => {
     dispatch(fetchData(city));
   }, [dispatch, city]);
 
-  const current = new Date();
-
+  // return a new image
   return (
     <section className="">
       <div
         className="shadow-xl border-[.6px]  border-neutral-300
-         rounded-md flex flex-col gap-10  py-12
+         rounded-md flex flex-col gap-10 py-12
          "
       >
         <h1
@@ -44,15 +41,15 @@ export const Weather = () => {
           {name}
         </h1>
 
-        <div className="flex flex-wrap  gap-12 justify-center items-start">
+        <div className="flex flex-wrap  gap-12 justify-center items-center">
           {/* <Icon /> */}
-          <img className="w-20 object-center " src={Clouds} alt="" />
+          <Icon  />
           <div className="flex flex-col justify-between text-left gap-1">
-            <p className="text-4xl text-gray-500 font-bold">
+            <p className="text-4xl text-gray-500 pb-4 ">
               {Math.floor(temp)}&deg;{" "}
             </p>
             <div>
-              <p className="tracking-wide text-xs uppercase">{desc} </p>
+              <p className="tracking-wider text-xs uppercase font-bold">{desc} </p>
               <p className="text-xs">{today}</p>
             </div>
           </div>

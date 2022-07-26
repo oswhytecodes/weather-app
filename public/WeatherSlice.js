@@ -44,7 +44,7 @@ const WeatherSlice = createSlice({
     [fetchData.fulfilled]: (state, action) => {
       state.loading = false;
       state.data = action.payload;
-      state.desc = action.payload.weather.map((x) => x.main);
+      state.desc = action.payload.weather.map((x) => x.description);
       state.temp = action.payload.main.temp;
       state.name = action.payload.name;
       state.error = "";

@@ -15,14 +15,14 @@
         "Thunderstorm": "#D9DEDF",
         "Snow": "#D9DEDF",
         "Drizzle": "#18B2D8",
-        "Clouds": "#FCC418"
+        "Clouds": "#87CBDE"
     },
     "icons": {
-        "Rain": "Rain.svg",
-        "Drizzle": "Drizzle.svg",
-        "Clouds": "Clouds.svg",
-        "Clear": "Clear.svg",
-        "Snow": "Snow.svg",
-        "Thunderstorm": "Thunderstorm.svg"
+        "Rain": "/icons/Rain.svg",
+        "Drizzle": "/icons/Drizzle.svg",
+        "Clouds": "/icons/Clouds.svg",
+        "Clear": "/icons/Clear.svg",
+        "Snow": "/icons/Snow.svg",
+        "Thunderstorm": "/icons/Thunderstorm.svg"
     }
 }
