@@ -11,7 +11,6 @@ export const Icon = () => {
     return y;
   };
   let t = returnVal(data.icons, desc);
-  console.log(t);
   return (
     <div>
       <img src={t} className="w-28 object-center" alt={t} />
