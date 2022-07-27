@@ -23,7 +23,7 @@ export const SearchBar = () => {
           <input
             onChange={(e) => setValue(e.target.value)}
             className="border-[1px] shadow border-neutral-200 py-2 px-2
-            min-w-[16em] rounded"
+            min-w-[18em] rounded"
             type="text"
             value={value}
             placeholder="Search location..."
