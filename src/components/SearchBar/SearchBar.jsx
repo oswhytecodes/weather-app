@@ -19,7 +19,7 @@ export const SearchBar = () => {
     <section className="px-4">
       <div className="flex flex-col items-center md:items-center ">
         <form onSubmit={handleSubmit} className="relative">
-          <p className="uppercase text-xs text-gray-400 pl-1 pb-2">Location</p>
+          <p className="uppercase text-xs text-gray-600 pl-1 pb-2">Location</p>
           <input
             onChange={(e) => setValue(e.target.value)}
             className="border-[1px] shadow border-neutral-200 py-2 px-2
@@ -28,11 +28,13 @@ export const SearchBar = () => {
             value={value}
             placeholder="Search location..."
           />
-          <button className="relative right-7">
+          <button 
+          className="relative right-7"
+          aria-label="right align">
             <i
               type="submit"
               onClick={handleSubmit}
-              className="fa-solid text-gray-400 fa-magnifying-glass"
+              className="fa-solid text-gray-600 fa-magnifying-glass"
             ></i>
           </button>
         </form>

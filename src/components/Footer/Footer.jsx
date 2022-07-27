@@ -6,7 +6,7 @@ import { fetchData } from "../../redux/WeatherSlice";
 export const Footer = () => {
   const desc = useSelector((state) => state.weather.desc);
   const colors = data.colors;
-  
+
   // return the color that matches the weather description
   const returnVal = (obj, val) => {
     let y = obj[val];
@@ -18,9 +18,9 @@ export const Footer = () => {
     <footer style={{ backgroundColor: `${t}` }}>
       {" "}
       <p
-        className="text-sm uppercase 
-      text-left font-bold py-4 tracking-wider px-6
-       text-neutral-100"
+        className="text-md uppercase 
+      text-left font-bold py-4 tracking-widest px-6
+       text-neutral-50"
       >
         rainorshine
       </p>

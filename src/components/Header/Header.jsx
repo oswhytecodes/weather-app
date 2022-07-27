@@ -18,8 +18,8 @@ export const Header = () => {
   return (
     <header style={{ backgroundColor: `${t}` }} className="App-header">
       <p
-        className="text-md uppercase text-right font-bold py-4
-       tracking-wider px-6 text-neutral-100"
+        className="text-lg uppercase text-right font-bold py-4
+       tracking-widest px-6 text-neutral-50"
       >
         rainorshine
       </p>
