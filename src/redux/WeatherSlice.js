@@ -7,7 +7,7 @@ const initialState = {
   name: "",
   loading: false,
   error: "",
-  cityName: "Miami",
+  cityName: "Brooklyn",
 };
 
 // api call
