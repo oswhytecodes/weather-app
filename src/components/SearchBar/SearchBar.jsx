@@ -29,7 +29,7 @@ export const SearchBar = () => {
             placeholder="Search location..."
           />
           <button 
-          className="relative right-7"
+          className="relative right-10"
           aria-label="right align">
             <i
               type="submit"
