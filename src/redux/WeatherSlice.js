@@ -16,7 +16,7 @@ export const fetchData = createAsyncThunk(
   async (cityName, { rejectWithValue }) => {
     //
     try {
-      const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
+      const apiKEY = import.meta.env.PROD.VITE_APP_WEATHER_API_KEY;
       const apiURL = "https://api.openweathermap.org/data/2.5/weather";
 
       const url = `${apiURL}?q=${cityName}&appid=${apiKEY}&units=imperial`;
