@@ -15,8 +15,10 @@ export const Footer = () => {
   let t = returnVal(data.colors, desc);
 
   return (
-    <footer style={{ backgroundColor: `${t}` }}>
-      {" "}
+    <footer style={{ backgroundColor: `${t}` }} 
+    className="pb-[1em]"
+    >
+      
       <p
         className="text-md uppercase 
       text-left font-bold py-4 tracking-widest px-6
