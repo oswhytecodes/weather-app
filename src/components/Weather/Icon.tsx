@@ -10,7 +10,7 @@ import Preview from "/icons/Preview.svg";
 export const Icon = () => {
   const desc = useAppSelector((state) => state.weather.desc);
   const temp = useAppSelector((state) => state.weather.temp);
-
+  const rejected = useAppSelector((state) => state.weather.loading);
   //  return the image that matches the weather description
   const returnVal = (obj: any, val: string) => {
     let y = obj[val];
@@ -19,7 +19,7 @@ export const Icon = () => {
   let t = returnVal(data.icons, desc);
   return (
     <div>
-      <img src={temp === 0 ? Preview : t} className="w-28 h-fit object-center" alt={t} />
+      <img src={!rejected ? t : Preview} className="w-28 h-fit object-center" alt={t} />
     </div>
   );
 };

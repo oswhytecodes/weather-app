@@ -7,8 +7,8 @@ type InitialState = {
   name: string;
   loading: boolean;
   error: string;
+  cod: number,
   cityName: string;
-  value: string;
 };
 
 const initialState: InitialState = {
@@ -19,7 +19,7 @@ const initialState: InitialState = {
   loading: false,
   error: "",
   cityName: "",
-  value: "",
+  cod: 0,
 };
 
 // api call
@@ -35,8 +35,10 @@ export const fetchData = createAsyncThunk(
       const data = await fetch(url);
       const fetchedData = await data.json();
       return fetchedData;
-    } catch (error) {
-      return rejectWithValue(error);
+
+    } catch (error) {       
+        console.log(rejectWithValue(error));
+      
     }
   }
 );
@@ -61,6 +63,7 @@ const WeatherSlice = createSlice({
         state.temp = action.payload.main.temp;
         state.name = action.payload.name;
         state.error = "";
+        state.cod = action.payload.cod
       }),
       builder.addCase(fetchData.rejected, (state, action) => {
         state.loading = false;

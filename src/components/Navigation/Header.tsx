@@ -17,8 +17,9 @@ const returnVal = (obj: any, val: any) => {
 let t: string;
 export const Header = () => {
   const desc = useAppSelector((state) => state.weather.desc);
-  
-  if (desc === "") {
+  const rejected = useAppSelector((state) => state.weather.loading);
+
+  if (desc === "" || rejected) {
     t = defaultColor;
   } else {
     t = returnVal(data.colors, desc);
@@ -36,12 +37,14 @@ export const Header = () => {
 };
 
 export const Footer = () => {
-const desc = useAppSelector((state) => state.weather.desc);
- if (desc === "") {
-   t = defaultColor;
- } else {
-   t = returnVal(data.colors, desc);
- }
+  const desc = useAppSelector((state) => state.weather.desc);
+  const rejected = useAppSelector((state) => state.weather.loading);
+
+  if (desc === "" || rejected) {
+    t = defaultColor;
+  } else {
+    t = returnVal(data.colors, desc);
+  }
   return (
     <footer style={{ backgroundColor: `${t}` }} className="pb-[1em]">
       <p

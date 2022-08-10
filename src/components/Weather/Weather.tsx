@@ -15,6 +15,8 @@ export const Weather = () => {
   const desc = useAppSelector((state) => state.weather.desc);
   const name = useAppSelector((state) => state.weather.name);
   const city = useAppSelector((state) => state.weather.cityName);
+  const rejected = useAppSelector((state) => state.weather.loading);
+  const status = useAppSelector((state) => state.weather.cod);
 
   // Today's date from stack overflow
   let today: Date = new Date();
@@ -22,7 +24,7 @@ export const Weather = () => {
   let month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   let year = today.getFullYear();
   let todayDate = `${month} / ${day} / ${year} `;
-
+console.log(rejected)
   // dispatch data
   useEffect(() => {
     if (temp !== 0) {
@@ -30,7 +32,9 @@ export const Weather = () => {
     }
   }, [dispatch, city]);
 
-  // return a new image
+  // return temp with degree
+let weatherTemp = Math.floor(temp);
+  
   return (
     <section className="">
       <div
@@ -42,10 +46,10 @@ export const Weather = () => {
           className="uppercase font-bold text-xl 
           tracking-wider text-center"
         >
-          {name}
+          {status !== 404 && !rejected  ? name : "Try again"}
         </h1>
         {/* weather conditional */}
-        {temp === 0 ? (
+        {temp === 0 || rejected ? (
           <div className="flex justify-center items-center">
             <img
               src={prev}
@@ -58,14 +62,19 @@ export const Weather = () => {
             {/* <Icon /> */}
             <Icon />
             <div className="flex flex-col justify-between text-left gap-1">
-              <p className="text-4xl text-gray-500 pb-4 ">
-                {Math.floor(temp)}&deg;{" "}
-              </p>
+              {rejected ? (
+                ""
+              ) : (
+                <p className="text-4xl text-gray-500 pb-4 ">
+                  {weatherTemp}&deg;
+                </p>
+              )}
+
               <div>
                 <p className="tracking-wider text-xs uppercase font-bold">
-                  {desc}{" "}
+                  {rejected ? "" : desc}{" "}
                 </p>
-                <p className="text-xs">{todayDate}</p>
+                <p className="text-xs">{rejected ? " " : todayDate}</p>
               </div>
             </div>
           </div>
