@@ -17,7 +17,7 @@ export const Weather = () => {
   const city = useAppSelector((state) => state.weather.cityName);
   const rejected = useAppSelector((state) => state.weather.loading);
   const status = useAppSelector((state) => state.weather.cod);
-
+console.log(status)
   // Today's date from stack overflow
   let today: Date = new Date();
   let day = String(today.getDate()).padStart(2, "0");
@@ -46,7 +46,7 @@ let weatherTemp = Math.floor(temp);
           className="uppercase font-bold text-xl 
           tracking-wider text-center"
         >
-          {status !== 404 && !rejected  ? name : "Try again"}
+          {rejected  ? "try again" : name}
         </h1>
         {/* weather conditional */}
         {temp === 0 || rejected ? (

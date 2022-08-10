@@ -19,7 +19,7 @@ export const Icon = () => {
   let t = returnVal(data.icons, desc);
   return (
     <div>
-      <img src={!rejected ? t : Preview} className="w-28 h-fit object-center" alt={t} />
+      <img src={t} className="w-28 h-fit object-center" alt={t} />
     </div>
   );
 };
