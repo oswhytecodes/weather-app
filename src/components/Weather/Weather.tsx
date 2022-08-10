@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
-import Clouds from "/icons/Clouds.svg";
+import prev from "/images/prev.svg";
 
 export const Weather = () => {
   const dispatch = useAppDispatch();
@@ -22,15 +22,17 @@ export const Weather = () => {
   let month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   let year = today.getFullYear();
   let todayDate = `${month} / ${day} / ${year} `;
+
   // dispatch data
   useEffect(() => {
-    dispatch(fetchData(city));
+    if (temp !== 0) {
+      dispatch(fetchData(city));
+    }
   }, [dispatch, city]);
 
   // return a new image
   return (
     <section className="">
-     
       <div
         className="shadow-xl border-[.6px]  border-neutral-300
          rounded-md flex flex-col gap-10 py-12
@@ -42,20 +44,32 @@ export const Weather = () => {
         >
           {name}
         </h1>
-
-        <div className="flex flex-wrap  gap-12 justify-center items-center">
-          {/* <Icon /> */}
-          <Icon  />
-          <div className="flex flex-col justify-between text-left gap-1">
-            <p className="text-4xl text-gray-500 pb-4 ">
-              {Math.floor(temp)}&deg;{" "}
-            </p>
-            <div>
-              <p className="tracking-wider text-xs uppercase font-bold">{desc} </p>
-              <p className="text-xs">{todayDate}</p>
+        {/* weather conditional */}
+        {temp === 0 ? (
+          <div className="flex justify-center items-center">
+            <img
+              src={prev}
+              className="w-40 text-center object-cover"
+              alt={prev}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-wrap  gap-12 justify-center items-center">
+            {/* <Icon /> */}
+            <Icon />
+            <div className="flex flex-col justify-between text-left gap-1">
+              <p className="text-4xl text-gray-500 pb-4 ">
+                {Math.floor(temp)}&deg;{" "}
+              </p>
+              <div>
+                <p className="tracking-wider text-xs uppercase font-bold">
+                  {desc}{" "}
+                </p>
+                <p className="text-xs">{todayDate}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
