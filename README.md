@@ -2,7 +2,7 @@
 
 A lite Weather App using [The Open Weather API](https://openweathermap.org/)
 
-Built with Vite, React, Redux and Tailwind
+Built with Vite, React, Typescript, Redux and Tailwind
 
 Project was inspired by Konstantin Münster via a Medium article on organizing a React project
 
