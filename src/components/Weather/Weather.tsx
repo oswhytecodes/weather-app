@@ -1,26 +1,27 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+// typescript refactor
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
 import Clouds from "/icons/Clouds.svg";
 
 export const Weather = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const weatherData = useSelector((state) => state.weather.data);
-  const temp = useSelector((state) => state.weather.temp);
-  const desc = useSelector((state) => state.weather.desc);
-  const name = useSelector((state) => state.weather.name);
-  const city = useSelector((state) => state.weather.cityName);
+  const weatherData = useAppSelector((state) => state.weather.data);
+  const temp = useAppSelector((state) => state.weather.temp);
+  const desc = useAppSelector((state) => state.weather.desc);
+  const name = useAppSelector((state) => state.weather.name);
+  const city = useAppSelector((state) => state.weather.cityName);
 
   // Today's date from stack overflow
-  var today = new Date();
-  var day = String(today.getDate()).padStart(2, "0");
-  var month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  var year = today.getFullYear();
-  today = `${month} / ${day} / ${year} `;
-
+  let today: Date = new Date();
+  let day = String(today.getDate()).padStart(2, "0");
+  let month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let year = today.getFullYear();
+  let todayDate = `${month} / ${day} / ${year} `;
   // dispatch data
   useEffect(() => {
     dispatch(fetchData(city));
@@ -29,6 +30,7 @@ export const Weather = () => {
   // return a new image
   return (
     <section className="">
+     
       <div
         className="shadow-xl border-[.6px]  border-neutral-300
          rounded-md flex flex-col gap-10 py-12
@@ -50,7 +52,7 @@ export const Weather = () => {
             </p>
             <div>
               <p className="tracking-wider text-xs uppercase font-bold">{desc} </p>
-              <p className="text-xs">{today}</p>
+              <p className="text-xs">{todayDate}</p>
             </div>
           </div>
         </div>

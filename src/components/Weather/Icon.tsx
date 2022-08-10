@@ -1,12 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+// typescript refactor
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import data from "../../Assets.json";
 
+import Preview from "/icons/Preview.svg";
+
 export const Icon = () => {
-  const desc = useSelector((state) => state.weather.desc);
+  const desc = useAppSelector((state) => state.weather.desc);
   //  return the image that matches the weather description
-  const returnVal = (obj, val) => {
+  const returnVal = (obj: any, val: string) => {
     let y = obj[val];
     return y;
   };
