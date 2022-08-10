@@ -1,18 +1,24 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
-import data from "../../Assets.json"
+import data from "../../Assets.json";
 
+type InputValue = {
+  value: string;
+};
+type SubmitValue = {
+  handleSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 export const SearchBar = () => {
   const [value, setValue] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(fetchData(value));
-    // console.log(value)
     setValue("");
   };
   return (
@@ -28,14 +34,13 @@ export const SearchBar = () => {
             value={value}
             placeholder="Search location..."
           />
-          <button 
-          className="relative right-10"
-          aria-label="right align">
-            <i
-              type="submit"
-              onClick={handleSubmit}
-              className="fa-solid text-gray-600 fa-magnifying-glass"
-            ></i>
+          <button
+            type="submit"
+            onClick={(event: React.MouseEvent<HTMLElement>) => handleSubmit}
+            className="relative right-10"
+            aria-label="right align"
+          >
+            <i className="fa-solid text-gray-600 fa-magnifying-glass"></i>
           </button>
         </form>
       </div>

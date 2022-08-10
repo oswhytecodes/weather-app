@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import "./index.css";
-import { Header } from "./components/Header/Header";
+import { Header } from "./components/Navigation/Header";
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Weather } from "./components/Weather/Weather";
-import { Footer } from "./components/Footer/Footer";
+import { Footer } from "./components/Navigation/Header";;
 
 function App() {
   return (
