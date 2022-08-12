@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
-import data from "../../Assets.json";
+import { setInput } from "../../redux/WeatherSlice";
 
 type InputValue = {
   value: string;
@@ -13,25 +12,37 @@ type SubmitValue = {
 };
 
 export const SearchBar = () => {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   const dispatch = useAppDispatch();
+  const input = useAppSelector((state) => state.weather.input);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(fetchData(value));
-    setValue("");
+    dispatch(fetchData(input));
+    dispatch(setInput());
+    // console.log(input);
+    // dispatch(fetchData(value));
+    // setValue("");
   };
+  // React.ChangeEvent<HTMLFormElement>
+  const handleChange = (e: any) => {
+    dispatch(setInput(e.target.value));
+    // setValue(e.target.value);
+  };
+
   return (
     <section className="px-4">
       <div className="flex flex-col items-center md:items-center ">
         <form onSubmit={handleSubmit} className="relative">
           <p className="uppercase text-xs text-gray-600 pl-1 pb-2">Location</p>
           <input
-            onChange={(e) => setValue(e.target.value)}
+            // onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
             className="border-[1px] shadow border-neutral-200 py-2 px-2
             min-w-[18em] rounded"
             type="text"
-            value={value}
+            value={input}
+            // value={value}
             placeholder="Search location..."
           />
           <button
