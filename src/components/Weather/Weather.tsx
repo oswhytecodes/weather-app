@@ -10,7 +10,7 @@ export const Weather = () => {
   const { data, input, temp, desc, name, loading, error, cod } = useAppSelector(
     (state) => state.weather
   );
-
+// console.log(cod)
   // STILL WORKING ON THIS
   // default works for now
   let cardSection = <Default />;
