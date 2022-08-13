@@ -9,7 +9,7 @@ type InitialState = {
   // loading: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
-  cod: number | null;
+  cod: 200 | 400 | 404 | null;
   city: string;
   input: string;
 };
@@ -30,16 +30,18 @@ const initialState: InitialState = {
 // axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
-  async (city: string, { rejectWithValue}) => {
+  async (city: string, { rejectWithValue }) => {
     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
 
     const response = await axios.get(url);
+    if (response.data.payload.cod !== 200) {
+      console.log("not 200");
+    }
     return response.data;
   }
 );
-
 
 // weather slice
 const WeatherSlice = createSlice({
@@ -63,12 +65,12 @@ const WeatherSlice = createSlice({
         state.temp = action.payload.main.temp;
         state.name = action.payload.name;
         state.cod = action.payload.cod;
-        state.error = action.payload.message;
       }),
-      builder.addCase(fetchData.rejected, (state, action) => {
-        state.loading = "failed";
+      builder.addCase(fetchData.rejected, (state: InitialState, action) => {
         state.data = {};
+        state.loading = "failed";
         state.error = true;
+        state.cod = 400 || 404;
       });
   },
 });
@@ -83,7 +85,6 @@ export const { setInput } = WeatherSlice.actions;
 //   return
 // }
 
-
 // api call async await
 // export const fetchData = createAsyncThunk(
 //   "weather/fetchData",
@@ -97,5 +98,24 @@ export const { setInput } = WeatherSlice.actions;
 //     const data = await fetch(url);
 //     const fetchedData = await data.json();
 //     return fetchedData;
+//   }
+// );
+
+// api call async await
+// export const fetchData = createAsyncThunk(
+//   "weather/fetchData",
+//   async (city: string, { rejectWithValue }) => {
+//     //
+//     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
+//     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
+
+//     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
+//     const data = await fetch(url);
+//     const fetchedData = await data.json();
+
+//     if (fetchedData.payload.cod !== 200) {
+//       rejectWithValue("Not 200");
+//     } else {
+//     return fetchedData;}
 //   }
 // );
