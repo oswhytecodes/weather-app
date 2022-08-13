@@ -16,14 +16,13 @@ export const SearchBar = () => {
   const dispatch = useAppDispatch();
   const input = useAppSelector((state) => state.weather.input);
 
+  // DATA FOR THE INPUT/SEARCH
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(fetchData(input));
-    dispatch(setInput());
-    // console.log(input);
-    // dispatch(fetchData(value));
-    // setValue("");
+    dispatch(setInput(""));
   };
+  
   // React.ChangeEvent<HTMLFormElement>
   const handleChange = (e: any) => {
     dispatch(setInput(e.target.value));

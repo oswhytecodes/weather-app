@@ -1,24 +1,27 @@
 import React from "react";
 import { useAppSelector } from "../../redux/hooks";
-
+// import { fetchedData } from "../../redux/WeatherSlice";
 import { Loader } from "./Loader";
 import { Card } from "./Card";
 import { Default } from "./Default";
 import { Error } from "./Error";
 
 export const Weather = () => {
-  const { data, temp, desc, name, loading, error, cod } = useAppSelector(
+  const { data, input, temp, desc, name, loading, error, cod } = useAppSelector(
     (state) => state.weather
   );
 
-  // console.log(temp, error, loading, cod);
+  // STILL WORKING ON THIS
+  // default works for now
   let cardSection = <Default />;
-  // if loading
-  // if (loading) cardSection = <Loader />
-  // if the input value does not match the city name - send error
-  // if (error) cardSection = <Error />;
-  // if the temp is > 0
-  if (temp && desc) cardSection = <Card />;
+  if (!loading && temp === null) {
+    cardSection = <Loader />;
+  } else if (cod === 404) {
+    cardSection = <Error />;
+    // and the card
+  } else if (temp) {
+    cardSection = <Card />;
+  }
 
   return (
     <section

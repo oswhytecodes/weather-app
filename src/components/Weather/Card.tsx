@@ -10,7 +10,7 @@ export const Card = () => {
     (state) => state.weather
   );
   
-  // return temp with degree
+  // return temp with degree // not sure why temp wont bypass the type
   let weatherTemp = Math.floor(temp);
 
   // Today's date from stack overflow
@@ -20,7 +20,7 @@ export const Card = () => {
   let year = today.getFullYear();
   let todayDate = `${month} / ${day} / ${year} `;
 
-  // dispatch data
+  // DATA FOR THE CARDS
   useEffect(() => {
     if (temp !== 0) {
       dispatch(fetchData(city));
