@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 type InitialState = {
   data: {};
@@ -6,7 +7,7 @@ type InitialState = {
   desc: "";
   name: string;
   // loading: boolean;
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
   cod: number | null;
   city: string;
@@ -19,27 +20,26 @@ const initialState: InitialState = {
   desc: "",
   name: "",
   // loading: false,
-  loading: 'idle',
+  loading: "idle",
   error: false,
   city: "",
   cod: null,
   input: "",
 };
 
-// api call
+// axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
-  async (city: string) => {
-    //, { rejectWithValue }
+  async (city: string, { rejectWithValue}) => {
     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-
     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-    const data = await fetch(url);
-    const fetchedData = await data.json();
-    return fetchedData;
+
+    const response = await axios.get(url);
+    return response.data;
   }
 );
+
 
 // weather slice
 const WeatherSlice = createSlice({
@@ -52,11 +52,11 @@ const WeatherSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state) => {
-      state.loading = 'pending';
+      state.loading = "pending";
     }),
       builder.addCase(fetchData.fulfilled, (state, action) => {
         state.data = action.payload;
-        state.loading = 'succeeded';
+        state.loading = "succeeded";
 
         // data for the cards
         state.desc = action.payload.weather.map((x: any) => x.main);
@@ -66,7 +66,7 @@ const WeatherSlice = createSlice({
         state.error = action.payload.message;
       }),
       builder.addCase(fetchData.rejected, (state, action) => {
-        state.loading = 'failed';
+        state.loading = "failed";
         state.data = {};
         state.error = true;
       });
@@ -82,3 +82,20 @@ export const { setInput } = WeatherSlice.actions;
 //   state.data = {}
 //   return
 // }
+
+
+// api call async await
+// export const fetchData = createAsyncThunk(
+//   "weather/fetchData",
+//   async (city: string, { rejectWithValue }) => {
+
+//     //
+//     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
+//     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
+
+//     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
+//     const data = await fetch(url);
+//     const fetchedData = await data.json();
+//     return fetchedData;
+//   }
+// );
