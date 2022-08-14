@@ -24,12 +24,12 @@ export const Header = () => {
     t = returnVal(data.colors, desc);
   }
   console.log(t);
-  // const refresh = () => {
-  //   window.location.reload(false);
-  // };
+  const refresh = () => {
+    window.location.reload(false);
+  };
   return (
     <header
-      // onClick={refresh}
+      onClick={refresh}
       style={{ backgroundColor: `${t}` }}
       className="App-header cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
     >
@@ -45,9 +45,9 @@ export const Header = () => {
 };
 
 export const Footer = () => {
-   const desc = useAppSelector((state) =>
-     state.weather.data.weather.map((desc) => desc.main)
-   );
+  const desc = useAppSelector((state) =>
+    state.weather.data.weather.map((desc) => desc.main)
+  );
   const rejected = useAppSelector((state) => state.weather.loading);
 
   if (rejected === "idle") {

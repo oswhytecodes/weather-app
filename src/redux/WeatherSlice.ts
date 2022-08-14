@@ -49,8 +49,7 @@ export const fetchData = createAsyncThunk(
     return response.data;
   }
 );
-
-// weather slice
+// Weather Slice
 const WeatherSlice = createSlice({
   name: "weather",
   initialState: initialState,
@@ -60,19 +59,15 @@ const WeatherSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // pending
     builder.addCase(fetchData.pending, (state) => {
       state.loading = "pending";
     }),
-      // fulfilled
       builder.addCase(fetchData.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = "succeeded";
         state.error = false
       }),
-      // rejected
       builder.addCase(fetchData.rejected, (state: InitialState, action) => {
-        // state.data = {};
         state.loading = "failed";
         state.error = true;
       });
