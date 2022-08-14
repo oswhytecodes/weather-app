@@ -2,43 +2,47 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 type InitialState = {
-  data: {};
-  temp: number | null;
-  desc: "";
-  name: string;
+  data: {
+    main: { temp: any };
+    cod: any;
+    message: string;
+    weather: [
+     { main: string},
+    ];
+    name: string;
+  };
+  city: string;
   // loading: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
-  cod: 200 | 400 | 404 | null;
-  city: string;
   input: string;
 };
 
 const initialState: InitialState = {
-  data: {},
-  temp: null,
-  desc: "",
-  name: "",
+  data: {
+    main: { temp: null },
+    message: "",
+    cod: 0,
+    weather: [
+      { main: "" }
+    ],
+    name: "",
+  },
+  city: "",
   // loading: false,
   loading: "idle",
   error: false,
-  city: "",
-  cod: null,
   input: "",
 };
 
 // axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
-  async (city: string, { rejectWithValue }) => {
+  async (city: string) => {
     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-
     const response = await axios.get(url);
-    if (response.data.payload.cod !== 200) {
-      console.log("not 200");
-    }
     return response.data;
   }
 );
@@ -53,24 +57,21 @@ const WeatherSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // pending
     builder.addCase(fetchData.pending, (state) => {
       state.loading = "pending";
     }),
+      // fulfilled
       builder.addCase(fetchData.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = "succeeded";
 
-        // data for the cards
-        state.desc = action.payload.weather.map((x: any) => x.main);
-        state.temp = action.payload.main.temp;
-        state.name = action.payload.name;
-        state.cod = action.payload.cod;
       }),
+      // rejected
       builder.addCase(fetchData.rejected, (state: InitialState, action) => {
-        state.data = {};
+        // state.data = {};
         state.loading = "failed";
         state.error = true;
-        state.cod = 400 || 404;
       });
   },
 });
@@ -84,6 +85,7 @@ export const { setInput } = WeatherSlice.actions;
 //   state.data = {}
 //   return
 // }
+
 
 // api call async await
 // export const fetchData = createAsyncThunk(
@@ -119,3 +121,12 @@ export const { setInput } = WeatherSlice.actions;
 //     return fetchedData;}
 //   }
 // );
+
+
+
+        // data for the cards
+        // state.desc = action.payload.weather.map((x: any) => x.main);
+        // state.temp = action.payload.main.temp;
+        // state.name = action.payload.name;
+        // state.cod = action.payload.cod;
+        // state.message = action.payload.message

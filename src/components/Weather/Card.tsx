@@ -6,10 +6,14 @@ import { Icon } from "./Icon";
 
 export const Card = () => {
   const dispatch = useAppDispatch();
-  const { temp, desc, name, loading, city } = useAppSelector(
-    (state) => state.weather
+
+  const temp = useAppSelector((state) => state.weather.data.main.temp);
+  const desc = useAppSelector((state) =>
+    state.weather.data.weather.map((x) => x.main)
   );
-  
+  const name = useAppSelector((state) => state.weather.data.name);
+  const city = useAppSelector((state) => state.weather.city);
+
   // return temp with degree // not sure why temp wont bypass the type
   let weatherTemp = Math.floor(temp);
 
@@ -22,15 +26,11 @@ export const Card = () => {
 
   // DATA FOR THE CARDS
   useEffect(() => {
-    if (temp !== 0) {
-      dispatch(fetchData(city));
-    }
-  }, [dispatch, city]);
+    dispatch(fetchData(city));
+  }, [dispatch]);
 
   return (
-    <div
-      className=""
-    >
+    <div className="">
       <h1
         className="uppercase font-bold text-xl 
           tracking-wider text-center mb-6"

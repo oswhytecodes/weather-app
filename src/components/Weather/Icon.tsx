@@ -8,11 +8,13 @@ import data from "../../Assets.json";
 import Preview from "/icons/Preview.svg";
 
 export const Icon = () => {
-  const desc = useAppSelector((state) => state.weather.desc);
-  const temp = useAppSelector((state) => state.weather.temp);
+ const temp = useAppSelector((state) => state.weather.data.main.temp);
+ const desc = useAppSelector((state) =>
+   state.weather.data.weather.map((x) => x.main)
+ );
   const rejected = useAppSelector((state) => state.weather.loading);
   //  return the image that matches the weather description
-  const returnVal = (obj: any, val: string) => {
+  const returnVal = (obj: any, val: any) => {
     let y = obj[val];
     return y;
   };

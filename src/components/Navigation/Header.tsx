@@ -6,22 +6,24 @@ import { fetchData } from "../../redux/WeatherSlice";
 const colors = data.colors;
 let defaultColor = colors.default;
 // return the color that matches the weather description
-// const [color, setColor] = useState("");
 const returnVal = (obj: any, val: any) => {
   let y = obj[val];
   return y;
 };
-let t: string;
+let t: string = "#C0B3BC";
 
 export const Header = () => {
-  const desc = useAppSelector((state) => state.weather.desc);
+  const desc = useAppSelector((state) =>
+    state.weather.data.weather.map((desc) => desc.main)
+  );
   const rejected = useAppSelector((state) => state.weather.loading);
 
-  if (desc === "" ) {
-    t = defaultColor;
-  } else {
+  if (rejected === "idle") {
+    t = "#C0B3BC";
+  } else if (desc[0] !== "default") {
     t = returnVal(data.colors, desc);
   }
+  console.log(t);
   // const refresh = () => {
   //   window.location.reload(false);
   // };
@@ -43,12 +45,14 @@ export const Header = () => {
 };
 
 export const Footer = () => {
-  const desc = useAppSelector((state) => state.weather.desc);
+   const desc = useAppSelector((state) =>
+     state.weather.data.weather.map((desc) => desc.main)
+   );
   const rejected = useAppSelector((state) => state.weather.loading);
 
-  if (desc === "") {
-    t = defaultColor;
-  } else {
+  if (rejected === "idle") {
+    t = "#C0B3BC";
+  } else if (desc[0] !== "default") {
     t = returnVal(data.colors, desc);
   }
   return (

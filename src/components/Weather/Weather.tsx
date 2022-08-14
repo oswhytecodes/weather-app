@@ -7,32 +7,11 @@ import { Default } from "./Default";
 import { Error } from "./Error";
 
 export const Weather = () => {
-  const { data, input, temp, desc, name, loading, error, cod } = useAppSelector(
-    (state) => state.weather
-  );
-  // console.log(cod)
-  // STILL WORKING ON THIS
-  // default works for now
-let cardSection = <Default />;
-if (!loading && temp === null) {
-  cardSection = <Loader />;
-  // and the card
-} else if (cod !== 200) {
-  cardSection = <Error />;
-} else if (temp) {
-  cardSection = <Card />;
-}
+ 
+const temp = useAppSelector((state) => state.weather.data.main.temp);
 
-
-  // let cardSection = <Default />;
-  // if (loading) {
-  //   cardSection = <Loader />;
-  //   // and the card
-  // } else if (temp && loading === "succeeded") {
-  //   cardSection = <Card />;
-  // } else if (loading === "failed") {
-  //   cardSection = <Error />;
-  // }
+  let cardSection = <Default />;
+  if (temp !== null) cardSection = <Card />;
 
   return (
     <section
@@ -43,5 +22,3 @@ if (!loading && temp === null) {
     </section>
   );
 };
-
-
