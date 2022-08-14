@@ -7,11 +7,13 @@ import { Default } from "./Default";
 import { Error } from "./Error";
 
 export const Weather = () => {
- 
-const temp = useAppSelector((state) => state.weather.data.main.temp);
+  const temp = useAppSelector((state) => state.weather.data.main.temp);
+  const loading = useAppSelector((state) => state.weather.loading);
+  const error = useAppSelector((state) => state.weather.error);
 
   let cardSection = <Default />;
-  if (temp !== null) cardSection = <Card />;
+  if (temp) cardSection = <Card />;
+  // if (error === true) cardSection = <Error />;
 
   return (
     <section

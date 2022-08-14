@@ -38,11 +38,14 @@ const initialState: InitialState = {
 // axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
-  async (city: string) => {
+  async (city: string, {rejectWithValue}) => {
     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
     const response = await axios.get(url);
+    if(response.data.cod !== 200) {
+      return rejectWithValue(response.data.message)
+    }
     return response.data;
   }
 );
@@ -65,7 +68,7 @@ const WeatherSlice = createSlice({
       builder.addCase(fetchData.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = "succeeded";
-
+        state.error = false
       }),
       // rejected
       builder.addCase(fetchData.rejected, (state: InitialState, action) => {
