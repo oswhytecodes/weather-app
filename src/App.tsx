@@ -12,7 +12,7 @@ function App() {
       <Header />
       <div>
         <SearchBar />
-        <Card />
+        <Weather />
       </div>
       <Footer />
     </div>

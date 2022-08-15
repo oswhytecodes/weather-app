@@ -8,6 +8,7 @@ type InitialState = {
     message: string;
     weather: [{ main: string }];
     name: string;
+    id: number;
   };
   city: string;
   // loading: boolean;
@@ -23,6 +24,7 @@ const initialState: InitialState = {
     cod: 0,
     weather: [{ main: "" }],
     name: "",
+    id: 0,
   },
   city: "",
   // loading: false,

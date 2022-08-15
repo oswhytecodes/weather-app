@@ -14,6 +14,7 @@ export const Card = () => {
   );
   const name = useAppSelector((state) => state.weather.data.name);
   const city = useAppSelector((state) => state.weather.city);
+  const input = useAppSelector((state) => state.weather.input);
 
   // return temp with degree // not sure why temp wont bypass the type
   let weatherTemp = Math.floor(temp);
@@ -27,16 +28,15 @@ export const Card = () => {
 
   // DATA FOR THE CARDS
   useEffect(() => {
-    dispatch(fetchData(city));
+    if (name !== input && loading === "pending") {
+      dispatch(fetchData(city));
+    }
   }, [dispatch, city]);
 
   const loading = useAppSelector((state) => state.weather.loading);
 
   return (
-    <section
-      className="shadow-xl border-[.6px] border-neutral-300
-         rounded-md flex flex-col gap-10 py-12"
-    >
+    <section className="">
       <h1
         className="uppercase font-bold text-xl 
           tracking-wider text-center mb-6"

@@ -14,9 +14,13 @@ export const Weather = () => {
   const name = useAppSelector((state) => state.weather.data.name);
   const cod = useAppSelector((state) => state.weather.data.cod);
 
-  let cardSection = <Card />;
-  // if (temp) cardSection = <Card />;
+  let cardSection = <Default />;
 
+  if (loading === "pending" && !error) cardSection = <Loader />;
+  
+  if (data.id && loading === "idle" && error === false) cardSection = <Card />;
+
+  if(error) cardSection = <Error/>
   return (
     <section
       className="shadow-xl border-[.6px] border-neutral-300
