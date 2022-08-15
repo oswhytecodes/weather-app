@@ -8,10 +8,12 @@ import { Card } from "./components/Weather/Card";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <div className="flex flex-col justify-start mx-2 ">
-      <SearchBar />
-      <Weather />
+      <div className="flex flex-col justify-start">
+        <Header />
+        <div className="mx-3 mt-6">
+          <SearchBar />
+          <Weather />
+        </div>
       </div>
       <Footer />
     </div>
@@ -19,4 +21,3 @@ function App() {
 }
 
 export default App;
-
