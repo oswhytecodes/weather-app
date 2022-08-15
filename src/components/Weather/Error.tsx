@@ -4,7 +4,11 @@ import { fetchData } from "../../redux/WeatherSlice";
 
 
 export const Error = () => {
-    const cod = useAppSelector(state => state.weather.cod)
+    const cod = useAppSelector(state => state.weather.data.cod)
     const error = useAppSelector((state) => state.weather.error);
-  return <div className="flex justify-center items-center">Try again</div>;
+  return (
+    <div className="flex justify-center items-center py-16 px-16 ">
+      City Not Found. Try again.
+    </div>
+  );
 }
