@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./index.css";
 import { Header } from "./components/Navigation/Header";
 import { SearchBar } from "./components/SearchBar/SearchBar";
@@ -10,9 +9,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div>
-        <SearchBar />
-        <Weather />
+      <div className="flex flex-col justify-start mx-2 ">
+      <SearchBar />
+      <Weather />
       </div>
       <Footer />
     </div>
@@ -21,4 +20,3 @@ function App() {
 
 export default App;
 
-// console.log(import.meta.env.VITE_APP_WEATHER_API_KEY);
