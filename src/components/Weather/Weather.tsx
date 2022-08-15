@@ -22,7 +22,7 @@ export const Weather = () => {
   return (
     <section
       className="WEATHER-CONTAINER shadow-xl  border-[.6px] border-neutral-300
-         rounded-md flex-col gap-10 mb-12"
+         rounded-md flex-col gap-10 mt-4 mb-12"
     >
       <div className=""> {cardSection}</div>
     </section>

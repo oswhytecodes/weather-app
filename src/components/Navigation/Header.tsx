@@ -16,32 +16,30 @@ export const Header = () => {
   const desc = useAppSelector((state) =>
     state.weather.data.weather.map((desc) => desc.main)
   );
-
   const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const loading = useAppSelector((state) => state.weather.loading);
-  const error = useAppSelector((state) => state.weather.error);
-  const data = useAppSelector((state) => state.weather.data);
-  const input = useAppSelector((state) => state.weather.input);
-  const name = useAppSelector((state) => state.weather.data.name);
-  const cod = useAppSelector((state) => state.weather.data.cod);
+  const { loading, error, data, input } = useAppSelector(
+    (state) => state.weather
+  );
+  const { cod, name } = useAppSelector((state) => state.weather.data);
+
   if (loading && !temp) {
     t = "#C0B3BC";
   } else if (desc[0] !== "default") {
     t = returnVal(Assets.colors, desc);
   }
   const refresh = () => {
-    window.location.reload(false);
+    window.location.reload();
   };
   return (
     <header
-    onClick={refresh}
-    style={{ backgroundColor: `${t}` }}
-    className="HEADER cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
+      onClick={refresh}
+      style={{ backgroundColor: `${t}` }}
+      className="HEADER cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
     >
       <p
         className="text-lg uppercase font-bold 
-        tracking-widest   text-neutral-50"
-        >
+        tracking-widest text-neutral-50"
+      >
         rainorshine
       </p>
       <p className="text-neutral-50">click to refresh</p>
@@ -53,14 +51,11 @@ export const Footer = () => {
   const desc = useAppSelector((state) =>
     state.weather.data.weather.map((desc) => desc.main)
   );
-
   const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const loading = useAppSelector((state) => state.weather.loading);
-  const error = useAppSelector((state) => state.weather.error);
-  const data = useAppSelector((state) => state.weather.data);
-  const input = useAppSelector((state) => state.weather.input);
-  const name = useAppSelector((state) => state.weather.data.name);
-  const cod = useAppSelector((state) => state.weather.data.cod);
+  const { loading, error, data, input } = useAppSelector(
+    (state) => state.weather
+  );
+  const { cod, name } = useAppSelector((state) => state.weather.data);
 
   if (loading && !temp) {
     t = "#C0B3BC";
