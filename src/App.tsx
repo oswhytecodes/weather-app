@@ -3,7 +3,8 @@ import "./index.css";
 import { Header } from "./components/Navigation/Header";
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Weather } from "./components/Weather/Weather";
-import { Footer } from "./components/Navigation/Header";;
+import { Footer } from "./components/Navigation/Header";
+import { Card } from "./components/Weather/Card";
 
 function App() {
   return (
