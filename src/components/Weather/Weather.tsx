@@ -5,15 +5,17 @@ import { Loader } from "./Loader";
 import { Card } from "./Card";
 import { Default } from "./Default";
 import { Error } from "./Error";
-
 export const Weather = () => {
   const temp = useAppSelector((state) => state.weather.data.main.temp);
   const loading = useAppSelector((state) => state.weather.loading);
   const error = useAppSelector((state) => state.weather.error);
+  const data = useAppSelector((state) => state.weather.data);
+  const input = useAppSelector((state) => state.weather.input);
+  const name = useAppSelector((state) => state.weather.data.name);
+  const cod = useAppSelector((state) => state.weather.data.cod);
 
-  let cardSection = <Default />;
-  if (temp) cardSection = <Card />;
-  // if (error === true) cardSection = <Error />;
+  let cardSection = <Card />;
+  // if (temp) cardSection = <Card />;
 
   return (
     <section

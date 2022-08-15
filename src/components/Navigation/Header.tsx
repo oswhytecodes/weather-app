@@ -23,7 +23,7 @@ export const Header = () => {
   } else if (desc[0] !== "default") {
     t = returnVal(data.colors, desc);
   }
-  console.log(t);
+
   const refresh = () => {
     window.location.reload(false);
   };

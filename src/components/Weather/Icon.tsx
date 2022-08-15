@@ -4,7 +4,6 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import data from "../../Assets.json";
-
 import Preview from "/icons/Preview.svg";
 
 export const Icon = () => {

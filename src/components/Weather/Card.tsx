@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
+import { Default } from "./Default";
 
 export const Card = () => {
   const dispatch = useAppDispatch();
@@ -27,10 +28,15 @@ export const Card = () => {
   // DATA FOR THE CARDS
   useEffect(() => {
     dispatch(fetchData(city));
-  }, [dispatch]);
+  }, [dispatch, city]);
+
+  const loading = useAppSelector((state) => state.weather.loading);
 
   return (
-    <div className="">
+    <section
+      className="shadow-xl border-[.6px] border-neutral-300
+         rounded-md flex flex-col gap-10 py-12"
+    >
       <h1
         className="uppercase font-bold text-xl 
           tracking-wider text-center mb-6"
@@ -49,7 +55,7 @@ export const Card = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
