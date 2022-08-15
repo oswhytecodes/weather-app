@@ -11,7 +11,6 @@ const returnVal = (obj: any, val: any) => {
   return y;
 };
 let t: string = "#C0B3BC";
-console.log(t);
 
 export const Header = () => {
   const desc = useAppSelector((state) =>
@@ -37,7 +36,7 @@ export const Header = () => {
     <header
     onClick={refresh}
     style={{ backgroundColor: `${t}` }}
-    className="App-header cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
+    className="HEADER cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
     >
       <p
         className="text-lg uppercase font-bold 
@@ -69,9 +68,9 @@ export const Footer = () => {
     t = returnVal(Assets.colors, desc);
   }
   return (
-    <footer style={{ backgroundColor: `${t}` }} className="pb-[1em]">
+    <footer style={{ backgroundColor: `${t}` }} className="FOOTER pb-[1em] ">
       <p
-        className="text-md uppercase 
+        className=" text-md uppercase 
       text-left font-bold py-4 tracking-widest px-6
        text-neutral-50"
       >

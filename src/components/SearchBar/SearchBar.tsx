@@ -17,10 +17,13 @@ export const SearchBar = () => {
   const input = useAppSelector((state) => state.weather.input);
 
   // DATA FOR THE INPUT/SEARCH
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     dispatch(fetchData(input));
     dispatch(setInput(""));
+    if(event.key === 'Enter'){
+      event.target.blur()
+    } 
   };
   
   // React.ChangeEvent<HTMLFormElement>
@@ -30,15 +33,14 @@ export const SearchBar = () => {
   };
 
   return (
-    <section className="px-4">
-      <div className="flex flex-col items-center md:items-center ">
-        <form onSubmit={handleSubmit} className="relative">
+    <section className="SEARCH-BAR py-4 ">
+      <div className="flex flex-col self-start">
+        <form onSubmit={handleSubmit} className="">
           <p className="uppercase text-xs text-gray-600 pl-1 pb-2">Location</p>
           <input
-            // onChange={(e) => setValue(e.target.value)}
             onChange={handleChange}
             className="border-[1px] shadow border-neutral-200 py-2 px-2
-            min-w-[18em] rounded"
+            min-w-[14em] rounded"
             type="text"
             value={input}
             // value={value}
