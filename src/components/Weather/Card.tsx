@@ -100,7 +100,7 @@ export const Card = () => {
       </div>
 
       {toggle ? (
-        <div className="pt-6 px-6 flex flex-col transition-all justify-between">
+        <div className="pt-6 md:px-24 px-6 flex flex-col transition-all justify-between">
           <div className="flex justify-between">
             <div className="text-center">
               <h3 className="font-bold">Humidity </h3>
