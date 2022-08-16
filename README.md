@@ -1,4 +1,4 @@
-##weather-app
+# weather-app
 
 A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
 
@@ -11,10 +11,11 @@ of how to plan a React project. How to organize your components with the folder 
 
 A very fun project, I was able to dive into Redux, manipulate data, etc
 
-##Clone Project
+## Clone Project
 gh repo clone oswhytecodes/weather-app
 
 npm run dev
 
-####Screnshot of UI
+#### Screnshot of UI
+
 <img width="500" alt="Screen Shot 2022-07-27 at 9 06 52 AM" src="https://user-images.githubusercontent.com/92553207/181254416-c2d6d74c-ba7c-44b5-bf19-5e4db0065712.png">
