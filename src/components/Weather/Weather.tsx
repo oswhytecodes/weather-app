@@ -1,32 +1,30 @@
 import React from "react";
 import { useAppSelector } from "../../redux/hooks";
-// import { fetchedData } from "../../redux/WeatherSlice";
 import { Loader } from "./Loader";
 import { Card } from "./Card";
 import { Default } from "./Default";
 import { Error } from "./Error";
+
 export const Weather = () => {
   const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const loading = useAppSelector((state) => state.weather.loading);
-  const error = useAppSelector((state) => state.weather.error);
-  const data = useAppSelector((state) => state.weather.data);
-  const input = useAppSelector((state) => state.weather.input);
-  const name = useAppSelector((state) => state.weather.data.name);
-  const cod = useAppSelector((state) => state.weather.data.cod);
+  const { name, cod } = useAppSelector((state) => state.weather.data);
+  const { loading, error, data, input } = useAppSelector(
+    (state) => state.weather
+  );
 
   let cardSection = <Default />;
 
   if (loading === "pending" && !error) cardSection = <Loader />;
-  
+
   if (data.id && loading === "idle" && error === false) cardSection = <Card />;
 
-  if(error) cardSection = <Error/>
+  if (error) cardSection = <Error />;
   return (
     <section
-      className="shadow-xl border-[.6px] border-neutral-300
-         rounded-md flex flex-col gap-10 py-12  "
+      className="WEATHER-CONTAINER shadow-xl border-[.6px] border-neutral-300
+         rounded-md flex-col gap-10 mt-4 mb-12"
     >
-      {cardSection}
+      <div className=""> {cardSection}</div>
     </section>
   );
 };
