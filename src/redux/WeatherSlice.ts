@@ -13,7 +13,6 @@ type InitialState = {
     sys: { sunrise: number ; sunset: number  };
   };
   city: string;
-  // loading: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
   input: string;
@@ -30,7 +29,6 @@ const initialState: InitialState = {
     sys: { sunrise: 0, sunset: 0 },
   },
   city: "",
-  // loading: false,
   loading: "idle",
   error: false,
   input: "",
