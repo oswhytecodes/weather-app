@@ -12,9 +12,11 @@ of how to plan a React project. How to organize your components with the folder 
 A very fun project, I was able to dive into Redux, manipulate data, etc
 
 ## Clone Project
+```
 gh repo clone oswhytecodes/weather-app
 
 npm run dev
+```
 
 #### Screnshot of UI
 
