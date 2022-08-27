@@ -10,10 +10,9 @@ type InitialState = {
     name: string;
     id: number;
     // See More
-    sys: { sunrise: number ; sunset: number  };
+    sys: { sunrise: number; sunset: number };
   };
   city: string;
-  // loading: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
   input: string;
@@ -30,7 +29,6 @@ const initialState: InitialState = {
     sys: { sunrise: 0, sunset: 0 },
   },
   city: "",
-  // loading: false,
   loading: "idle",
   error: false,
   input: "",
@@ -40,10 +38,8 @@ const initialState: InitialState = {
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
   async (city: string, { rejectWithValue }) => {
-    const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
-    const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-    const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-    const response = await axios.get(url);
+    const apiURL = `http://localhost:8000/${city}`;
+    const response = await axios.get(apiURL);
     if (response.data.cod !== 200) {
       return rejectWithValue(response.data.message);
     }
@@ -77,3 +73,17 @@ const WeatherSlice = createSlice({
 
 export default WeatherSlice.reducer;
 export const { setInput } = WeatherSlice.actions;
+
+// export const fetchData = createAsyncThunk(
+//   "weather/fetchData",
+//   async (city: string, { rejectWithValue }) => {
+//     const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
+//     const apiURL = "https://api.openweathermap.org/data/2.5/weather";
+//     const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
+//     const response = await axios.get(url);
+//     if (response.data.cod !== 200) {
+//       return rejectWithValue(response.data.message);
+//     }
+//     return response.data;
+//   }
+// );

@@ -28,7 +28,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <section className="SEARCH-BAR py-4 ">
+    <section className="SEARCH-BAR py-4">
       <div className="flex flex-col self-start">
         <form onSubmit={handleSubmit} className="">
           <p className="uppercase text-xs text-gray-600 pl-1 pb-2">enter your Location</p>

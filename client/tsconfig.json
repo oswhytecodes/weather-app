@@ -17,6 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "public/images/Footer.tsx"],
+  "include": ["src", "public/images/Footer.tsx", "server/server.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

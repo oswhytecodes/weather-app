@@ -30,19 +30,36 @@ export const Header = () => {
   const refresh = () => {
     window.location.reload();
   };
+
+  
   return (
     <header
-      onClick={refresh}
       style={{ backgroundColor: `${t}` }}
       className="HEADER cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
     >
-      <p
-        className="text-lg uppercase font-bold 
-        tracking-widest text-neutral-50"
-      >
-        rainorshine
-      </p>
-      <p className="text-neutral-50">click to refresh</p>
+      <div className="flex">
+        <p
+          className="text-lg uppercase font-bold 
+        tracking-widest text-neutral-200 dark:text-neutral-900 pr-4"
+        >
+          rainorshine
+        </p>
+        <button onClick={refresh}>
+          <i
+            className="fa-solid fa-arrow-rotate-right text-neutral-50 text-xl
+      animate-pulse hover:animate-spin
+      "
+          ></i>
+        </button>
+      </div>
+
+      {/* <button className="cursor-pointer text-2xl" onClick={handleSwitch}>
+        {theme === "dark" ? (
+          <i className="fa-solid fa-moon animate-pulse"></i>
+        ) : (
+          <i className="fa-solid fa-sun animate-pulse"></i>
+        )}
+      </button> */}
     </header>
   );
 };

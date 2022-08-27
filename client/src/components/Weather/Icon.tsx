@@ -19,8 +19,8 @@ export const Icon = () => {
   };
   let t = returnVal(data.icons, desc);
   return (
-    <div>
-      <img src={t} className="w-28 h-fit object-center" alt={t} />
+    <div className="WEATHER-ICON">
+      <img src={t} className="w-32 h-fit object-center" alt={t} />
     </div>
   );
 };

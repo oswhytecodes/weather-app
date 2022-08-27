@@ -53,10 +53,8 @@ export const Card = () => {
 
   // See more feature
   const [toggle, setToggle] = useState(false);
-  // const [seeMore, setSeeMore] = useState(true)
   const seeMoreData = () => {
     setToggle((prev) => !prev);
-    // console.log(toggle);
   };
   return (
     <div className="py-8 px-4 transition-all">
@@ -71,7 +69,9 @@ export const Card = () => {
         <div className="flex flex-wrap gap-12 justify-center items-center">
           <Icon />
           <div className="flex flex-col justify-between text-left gap-1">
-            <p className="text-4xl text-gray-500 pb-4 ">{weatherTemp}&deg;</p>
+            <p className="text-4xl text-gray-500 dark:text-slate-50 pb-4 ">
+              {weatherTemp}&deg;
+            </p>
 
             <div>
               <p className="tracking-wider text-xs uppercase font-bold">
@@ -83,47 +83,49 @@ export const Card = () => {
         </div>
       </div>
 
-      <div className="m-auto flex items-center justify-center">
-        {toggle ? (
-          <i
-            onClick={seeMoreData}
-            className="fa-solid fa-circle-chevron-up animate-pulse pt-10 text-2xl text-neutral-600 cursor-pointer
-       "
-          ></i>
-        ) : (
-          <i
-            onClick={seeMoreData}
-            className="fa-solid fa-circle-chevron-down animate-pulse pt-10 text-2xl text-neutral-600 cursor-pointer
-       "
-          ></i>
-        )}
+      <div className="m-auto flex items-center justify-center gap-4 pt-10 ">
+        {!toggle && <p>See More</p>}
+        <i
+          onClick={seeMoreData}
+          className={`fa-solid ${
+            toggle ? "fa-circle-chevron-up" : "fa-circle-chevron-down"
+          } fa-circle-chevron-down hover:animate-pulse text-2xl text-neutral-600 cursor-pointer dark:text-slate-50
+       `}
+        ></i>
       </div>
 
-      {toggle ? (
+      {toggle && (
         <div className="pt-6 md:px-24 px-6 flex flex-col transition-all justify-between">
           <div className="flex justify-between">
             <div className="text-center">
               <h3 className="font-bold">Humidity </h3>
-              <p className="text-2xl text-gray-500"> {humidity}&#37;</p>
+              <p className="text-2xl text-gray-500 dark:text-slate-50">
+                {" "}
+                {humidity}&#37;
+              </p>
             </div>
             <div className="text-center">
               <p className="font-bold">Feels like</p>
-              <p className="text-2xl text-gray-500">{feelsLikeTemp}&deg;</p>
+              <p className="text-2xl text-gray-500 dark:text-slate-50">
+                {feelsLikeTemp}&deg;
+              </p>
             </div>
           </div>
           <div className="pt-8 flex justify-between ">
             <div className="text-center">
               <p className="font-bold">Sunrise</p>
-              <p className="text-sm text-gray-500">{sunriseDateX}</p>
+              <p className="text-sm text-gray-500 dark:text-slate-50">
+                {sunriseDateX}
+              </p>
             </div>
             <div className="text-center">
               <p className="font-bold">Sunset</p>
-              <p className="text-sm text-gray-500">{sunsetDateX}</p>
+              <p className="text-sm text-gray-500 dark:text-slate-50">
+                {sunsetDateX}
+              </p>
             </div>
           </div>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
