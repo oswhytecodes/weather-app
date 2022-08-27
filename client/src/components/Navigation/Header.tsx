@@ -1,93 +1,116 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import Assets from "../../Assets.json";
-import { fetchData } from "../../redux/WeatherSlice";
+import { useAppSelector } from "../../redux/hooks";
+import Assets from "../../modules/Assets.json";
+import LogoIcon from "/icons/cloud-sun-rain.svg";
+import { SearchBar } from "../SearchBar/SearchBar";
+
+// HEADER AND FOOTER COMPONENT
 
 const colors = Assets.colors;
-let defaultColor = colors.default;
 // return the color that matches the weather description
 const returnVal = (obj: any, val: any) => {
   let y = obj[val];
   return y;
 };
-let t: string = "#C0B3BC";
+let headerColor = "#C0B3BC";
 
 export const Header = () => {
   const desc = useAppSelector((state) =>
     state.weather.data.weather.map((desc) => desc.main)
   );
-  const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const { loading, error, data, input } = useAppSelector(
-    (state) => state.weather
-  );
-  const { cod, name } = useAppSelector((state) => state.weather.data);
-
-  if (loading && !temp) {
-    t = "#C0B3BC";
+  const temperature = useAppSelector((state) => state.weather.data.main.temp);
+  const { loading } = useAppSelector((state) => state.weather);
+  if (loading && !temperature) {
+    headerColor = "#C0B3BC";
   } else if (desc[0] !== "default") {
-    t = returnVal(Assets.colors, desc);
+    headerColor = returnVal(Assets.colors, desc);
   }
   const refresh = () => {
     window.location.reload();
   };
 
-  
   return (
     <header
-      style={{ backgroundColor: `${t}` }}
-      className="HEADER cursor-pointer px-6 py-4 flex justify-between items-center hover:bg-opacity-10 "
+      style={{ backgroundColor: `${headerColor}` }}
+      className="HEADER cursor-pointer px-6 py-4 gap-4 flex justify-between items-center hover:bg-opacity-10 "
     >
       <div className="flex">
-        <p
-          className="text-lg uppercase font-bold 
-        tracking-widest text-neutral-200 dark:text-neutral-900 pr-4"
-        >
-          rainorshine
-        </p>
-        <button onClick={refresh}>
-          <i
-            className="fa-solid fa-arrow-rotate-right text-neutral-50 text-xl
-      animate-pulse hover:animate-spin
-      "
-          ></i>
-        </button>
-      </div>
+        <div className="hidden md:block">
+          <p
+            className=" uppercase font-bold 
+        tracking-widest text-neutral-200
+        text-3xl
+         dark:text-neutral-900 pr-4"
+          >
+            rainorshine
+          </p>
+        </div>
 
-      {/* <button className="cursor-pointer text-2xl" onClick={handleSwitch}>
-        {theme === "dark" ? (
-          <i className="fa-solid fa-moon animate-pulse"></i>
-        ) : (
-          <i className="fa-solid fa-sun animate-pulse"></i>
-        )}
-      </button> */}
+        <img className="block md:hidden" src={LogoIcon} alt="" />
+        <button onClick={refresh}></button>
+      </div>
+      <div>
+        <SearchBar />
+      </div>
     </header>
   );
 };
-
+// FOOTER
 export const Footer = () => {
-  const desc = useAppSelector((state) =>
+  const description = useAppSelector((state) =>
     state.weather.data.weather.map((desc) => desc.main)
   );
-  const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const { loading, error, data, input } = useAppSelector(
-    (state) => state.weather
-  );
-  const { cod, name } = useAppSelector((state) => state.weather.data);
+  const temperature = useAppSelector((state) => state.weather.data.main.temp);
+  const { loading } = useAppSelector((state) => state.weather);
 
-  if (loading && !temp) {
-    t = "#C0B3BC";
-  } else if (desc[0] !== "default") {
-    t = returnVal(Assets.colors, desc);
+  if (loading && !temperature) {
+    headerColor = "#C0B3BC";
+  } else if (description[0] !== "default") {
+    headerColor = returnVal(Assets.colors, description);
   }
   return (
-    <footer style={{ backgroundColor: `${t}` }} className="FOOTER pb-[1em] ">
-      <p
-        className=" text-md uppercase 
-      text-left font-bold py-4 tracking-widest px-6
-       text-neutral-50"
-      >
-        rainorshine
-      </p>
+    <footer
+      style={{ backgroundColor: `${headerColor}` }}
+      className="FOOTER py-3 flex justify-center"
+    >
+      <div className="flex text-2xl gap-4 p-2">
+        <a href="https://github.com/oswhytecodes" aria-label="github link">
+          {" "}
+          <i
+            className="fa-brands fa-github  
+             hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
+          ></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/orincywhyte/"
+          aria-label="linkedin link"
+        >
+          {" "}
+          <i
+            className="fa-brands fa-linkedin-in
+            hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
+          ></i>
+        </a>
+        <a
+          href="https://www.instagram.com/oswhytecodes/"
+          aria-label="instagram link"
+        >
+          {" "}
+          <i
+            className="fa-brands fa-instagram
+            hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
+          ></i>
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UC_3pNhSyYoZk3Z201kZvgsg"
+          aria-label="youtube link"
+        >
+          {" "}
+          <i
+            className="fa-brands fa-youtube
+           hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
+          ></i>
+        </a>
+      </div>
     </footer>
   );
 };

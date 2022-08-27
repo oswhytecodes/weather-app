@@ -3,7 +3,7 @@ import React from "react";
 // typescript refactor
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
-import data from "../../Assets.json";
+import data from "../../modules/Assets.json";
 import Preview from "/icons/Preview.svg";
 
 export const Icon = () => {
@@ -20,7 +20,7 @@ export const Icon = () => {
   let t = returnVal(data.icons, desc);
   return (
     <div className="WEATHER-ICON">
-      <img src={t} className="w-32 h-fit object-center" alt={t} />
+      <img src={t} className="md:w-32 w-24 h-fit object-center" alt={t} />
     </div>
   );
 };

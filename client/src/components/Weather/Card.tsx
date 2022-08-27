@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
-import { Default } from "./Default";
 
 export const Card = () => {
   const dispatch = useAppDispatch();
@@ -22,12 +21,14 @@ export const Card = () => {
   let weatherTemp = Math.floor(temp);
   let feelsLikeTemp = Math.floor(feels_like);
 
-  // Today's date from stack overflow
+  // Today's Data and Time
   let today: Date = new Date();
   let day = String(today.getDate()).padStart(2, "0");
   let month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   let year = today.getFullYear();
   let todayDate = `${month} / ${day} / ${year} `;
+  var todayTime = new Date();
+  var time = todayTime.getHours() + ":" + todayTime.getMinutes();
 
   // convert sunrise time
   let sunriseDate = new Date(sunrise * 1000);
@@ -44,7 +45,7 @@ export const Card = () => {
   let dayTime: string;
   let nightTime: string;
 
-  // DATA FOR THE CARDS
+  //DATA FOR THE CARDS
   useEffect(() => {
     if (name !== input && loading === "pending") {
       dispatch(fetchData(city));
@@ -57,28 +58,29 @@ export const Card = () => {
     setToggle((prev) => !prev);
   };
   return (
-    <div className="py-8 px-4 transition-all">
-      <div className="">
+    <div className="pb-8 bg-slate-50 transition-all">
+      <div className="flex  justify-between bg-neutral-200 px-4 py-2 md:mb-16 mb-8">
         <h1
           className="uppercase font-bold text-xl 
-          tracking-wider text-center mb-8"
+          tracking-wider text-center "
         >
           {name}
         </h1>
+        <p>{time}</p>
+      </div>
 
+      <div>
         <div className="flex flex-wrap gap-12 justify-center items-center">
-          <Icon />
           <div className="flex flex-col justify-between text-left gap-1">
-            <p className="text-4xl text-gray-500 dark:text-slate-50 pb-4 ">
+            <p className="md:text-8xl text-6xl text-gray-500 dark:text-slate-50 pb-4 ">
               {weatherTemp}&deg;
             </p>
 
-            <div>
-              <p className="tracking-wider text-xs uppercase font-bold">
-                {desc}
-              </p>
-              <p className="text-xs">{todayDate}</p>
-            </div>
+            {/* <div><p className="text-xs">{todayDate}</p></div> */}
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <Icon />
+            <p className="tracking-wider text-xs uppercase font-bold">{desc}</p>
           </div>
         </div>
       </div>
@@ -130,7 +132,3 @@ export const Card = () => {
     </div>
   );
 };
-{
-  /* <i class="fa-regular fa-circle-caret-down"></i>;
-<i class="fa-solid fa-circle-arrow-down"></i>; */
-}
