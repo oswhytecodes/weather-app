@@ -3,7 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage : {
+        'hero': "url('./public/images/bg.jpg)"
+      }
+    },
   },
   plugins: [],
 };
