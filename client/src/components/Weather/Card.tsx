@@ -1,49 +1,56 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
+import dateFormat, { masks } from "dateformat";
 
 export const Card = () => {
+
+  // weather data from slice
   const dispatch = useAppDispatch();
-  // weather data
+  const name = useAppSelector((state) => state.weather.data.name);
+  const { timezone, dt } = useAppSelector((state) => state.weather.data);
+  const { city, input, loading } = useAppSelector((state) => state.weather);
+  const { sunrise, sunset } = useAppSelector((state) => state.weather.data.sys);
+  const weatherDescription = useAppSelector((state) =>
+    state.weather.data.weather.map((x) => x.main)
+  );
   const { temp, humidity, feels_like } = useAppSelector(
     (state) => state.weather.data.main
   );
-  const desc = useAppSelector((state) =>
-    state.weather.data.weather.map((x) => x.main)
-  );
-  const name = useAppSelector((state) => state.weather.data.name);
-  const { city, input, loading } = useAppSelector((state) => state.weather);
-  const { sunrise, sunset } = useAppSelector((state) => state.weather.data.sys);
-
-  // return temp with degree // not sure why temp wont bypass the type
-  let weatherTemp = Math.floor(temp);
-  let feelsLikeTemp = Math.floor(feels_like);
-
-  // Today's Data and Time
-  let today: Date = new Date();
-  let day = String(today.getDate()).padStart(2, "0");
-  let month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  let year = today.getFullYear();
-  let todayDate = `${month} / ${day} / ${year} `;
-  var todayTime = new Date();
-  var time = todayTime.getHours() + ":" + todayTime.getMinutes();
+  
+  // Date Converter
+  const epochToMilliSecondsConverter = (n: number) => {
+    return new Date(n * 1000);
+  };
+  const timeZoneConverter = (n: number) => {
+    return n + timezone;
+  };
+  const utcConverter = (n: Date | string) => {
+    return dateFormat(n, "h:MM TT", true);
+  };
+  // timezone
+  const convertEpochToMS = timeZoneConverter(dt);
+  const UTC_Converter =
+    epochToMilliSecondsConverter(convertEpochToMS).toUTCString();
+  const UTCTime = utcConverter(UTC_Converter);
 
   // convert sunrise time
-  let sunriseDate = new Date(sunrise * 1000);
-  let sunriseDateX = sunriseDate.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  let sunriseConverter = timeZoneConverter(sunrise);
+  let sunriseDate = epochToMilliSecondsConverter(sunriseConverter);
+  let sunriseDateX = utcConverter(sunriseDate);
+
   // convert sunset time
-  let sunsetDate = new Date(sunset * 1000);
-  let sunsetDateX = sunsetDate.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  let dayTime: string;
-  let nightTime: string;
+  let sunsetConverter = timeZoneConverter(sunset);
+  let sunsetDate = epochToMilliSecondsConverter(sunsetConverter);
+  let sunsetDateX = utcConverter(sunsetDate);
+
+  // return temp with degree // not sure why temp wont bypass the type
+  let toFahrenheit = Math.floor(temp);
+  let feelsLikeTemp = Math.floor(feels_like);
+
+  // Weather is coming back as imperial - Fahrenheit convert to celsius
+  const toCelsius = Math.floor((toFahrenheit - 32) * (5 / 9));
 
   //DATA FOR THE CARDS
   useEffect(() => {
@@ -54,78 +61,89 @@ export const Card = () => {
 
   // See more feature
   const [toggle, setToggle] = useState(false);
+  const [toggleWeather, setToggleWeather] = useState(false);
   const seeMoreData = () => {
     setToggle((prev) => !prev);
   };
+  const toggleFahrenheit = () => {
+    setToggleWeather((prev) => !prev);
+  }
+
   return (
-    <div className="pb-8 bg-slate-50 transition-all">
-      <div className="flex  justify-between bg-neutral-200 px-4 py-2 md:mb-16 mb-8">
+    <div className=" bg-slate-50 transition-all">
+      <div className="flex items-center justify-between bg-neutral-200 px-4 py-2 md:mb-16 mb-8">
         <h1
-          className="uppercase font-bold text-xl 
+          className="uppercase font-bold text-2xl 
           tracking-wider text-center "
         >
           {name}
         </h1>
-        <p>{time}</p>
+        <p>{UTCTime}</p>
       </div>
 
       <div>
         <div className="flex flex-wrap gap-12 justify-center items-center">
-          <div className="flex flex-col justify-between text-left gap-1">
-            <p className="md:text-8xl text-6xl text-gray-500 dark:text-slate-50 pb-4 ">
-              {weatherTemp}&deg;
+          <div className="flex flex-col justify-between text-left gap-1 md:mt-8 mt-2 ">
+            <p
+              onClick={toggleFahrenheit}
+              className="md:text-8xl text-6xl cursor-pointer text-gray-500 dark:text-slate-50"
+            >
+              {
+              toggleWeather 
+              ? `${toFahrenheit}\u00b0` 
+              : `${toCelsius}\u00b0`
+              }
             </p>
 
-            {/* <div><p className="text-xs">{todayDate}</p></div> */}
+            <p className="tracking-wider md:text-xl text-sm uppercase md:ml-4 ml-1 font-bold">
+              {weatherDescription}
+            </p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <Icon />
-            <p className="tracking-wider text-xs uppercase font-bold">{desc}</p>
           </div>
         </div>
       </div>
 
-      <div className="m-auto flex items-center justify-center gap-4 pt-10 ">
-        {!toggle && <p>See More</p>}
+      <div className="m-auto mb-4 flex flex-col items-center justify-center pt-10 ">
+        {!toggle && (
+          <p className="text-[.2em] uppercase text-neutral-500">See More</p>
+        )}
         <i
           onClick={seeMoreData}
-          className={`fa-solid ${
-            toggle ? "fa-circle-chevron-up" : "fa-circle-chevron-down"
-          } fa-circle-chevron-down hover:animate-pulse text-2xl text-neutral-600 cursor-pointer dark:text-slate-50
+          className={`fa-solid 
+          ${toggle ? "fa-circle-chevron-up" : "fa-circle-chevron-down"} fa-circle-chevron-down hover:animate-pulse text-2xl text-neutral-600 cursor-pointer dark:text-slate-50
        `}
         ></i>
       </div>
 
       {toggle && (
-        <div className="pt-6 md:px-24 px-6 flex flex-col transition-all justify-between">
-          <div className="flex justify-between">
-            <div className="text-center">
-              <h3 className="font-bold">Humidity </h3>
-              <p className="text-2xl text-gray-500 dark:text-slate-50">
-                {" "}
-                {humidity}&#37;
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="font-bold">Feels like</p>
-              <p className="text-2xl text-gray-500 dark:text-slate-50">
-                {feelsLikeTemp}&deg;
-              </p>
-            </div>
+        <div className="py-6 mt-8 md:px-12 px-6 md:gap-8 gap-6 flex flex-wrap  transition-all justify-between bg-neutral-200 ">
+          <div className="text-center">
+            <h3 className="font-bold">Humidity </h3>
+            <p className="text-xl text-gray-500 dark:text-slate-50">
+              {" "}
+              {humidity}&#37;
+            </p>
           </div>
-          <div className="pt-8 flex justify-between ">
-            <div className="text-center">
-              <p className="font-bold">Sunrise</p>
-              <p className="text-sm text-gray-500 dark:text-slate-50">
-                {sunriseDateX}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="font-bold">Sunset</p>
-              <p className="text-sm text-gray-500 dark:text-slate-50">
-                {sunsetDateX}
-              </p>
-            </div>
+          <div className="text-center">
+            <p className="font-bold">Feels like</p>
+            <p className="text-xl text-gray-500 dark:text-slate-50">
+              {feelsLikeTemp}&deg;
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="font-bold">Sunrise</p>
+            <p className="md:text-xl text-md text-gray-500 dark:text-slate-50">
+              {sunriseDateX}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="font-bold">Sunset</p>
+            <p className="md:text-xl text-md text-gray-500 dark:text-slate-50">
+              {sunsetDateX}
+            </p>
           </div>
         </div>
       )}
