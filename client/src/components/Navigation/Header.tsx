@@ -3,7 +3,7 @@ import Assets from "../../modules/Assets.json";
 import { ColorKey, ColorType, COLORS } from "../../modules/types";
 import LogoIcon from "/icons/cloud-sun-rain.svg";
 import { SearchBar } from "../SearchBar/SearchBar";
-import dateFormat, { masks } from "dateformat";
+// import dateFormat, { masks } from "dateformat";
 
 // HEADER AND FOOTER COMPONENT
 // return the color that matches the weather description
@@ -63,7 +63,7 @@ export const Footer = () => {
     (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
   const now = new Date();
-  const todaysDate = dateFormat(now, "ddd, mmm dS yyyy. \n  h:MM TT");
+  // const todaysDate = dateFormat(now, "ddd, mmm dS yyyy. \n  h:MM TT");
   return (
     <footer
       style={{
@@ -74,7 +74,7 @@ export const Footer = () => {
       }}
       className="FOOTER py-3 flex flex-col justify-center items-center"
     >
-      <div className="text-center text-xs">{todaysDate}</div>
+      {/* <div className="text-center text-xs">{todaysDate}</div> */}
 
       <div className="flex text-2xl gap-4 p-2 pt-3">
         <a href="https://github.com/oswhytecodes" aria-label="github link">
