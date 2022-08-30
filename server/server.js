@@ -9,18 +9,21 @@ const apiKEY = process.env.VITE_APP_WEATHER_API_KEY;
 
 app.use(cors());
 
-app.get("/:city", async (req, res) => {
+app.get("/:city", async (req, res, next) => {
   const city = req.params.city;
   const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-
-  const result = await axios.get(url, {
-    method: "GET",
-    url: "apiURL",
-    headers: {
-      "API-KEY": apiKEY,
-    },
-  });
-  res.json(result.data);
+  try {
+    const result = await axios.get(url, {
+      method: "GET",
+      url: "apiURL",
+      headers: {
+        "API-KEY": apiKEY,
+      },
+    });
+    res.json(result.data);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.listen(PORT, () => {
