@@ -82,20 +82,16 @@ export const Card = () => {
       </div>
 
       <div>
-        <div className="flex flex-wrap gap-12 justify-center items-center">
-          <div className="flex flex-col justify-between text-left gap-1 md:mt-8 mt-2 ">
+        <div className="flex flex-wrap gap-12 justify-center  items-start md:mt-6 ">
+          <div className="flex flex-col justify-between text-left gap-1 ">
             <p
               onClick={toggleFahrenheit}
-              className="md:text-8xl text-6xl cursor-pointer text-gray-500 dark:text-slate-50"
+              className="md:text-7xl text-6xl cursor-pointer text-gray-500 dark:text-slate-50"
             >
-              {
-              toggleWeather 
-              ? `${toFahrenheit}\u00b0` 
-              : `${toCelsius}\u00b0`
-              }
+              {toggleWeather ? `${toCelsius}\u00b0` : `${toFahrenheit}\u00b0`}
             </p>
 
-            <p className="tracking-wider md:text-xl text-sm uppercase md:ml-4 ml-1 font-bold">
+            <p className="tracking-wider md:text-xl text-sm uppercase md:ml-1 ml-1 font-bold">
               {weatherDescription}
             </p>
           </div>
@@ -112,7 +108,9 @@ export const Card = () => {
         <i
           onClick={seeMoreData}
           className={`fa-solid 
-          ${toggle ? "fa-circle-chevron-up" : "fa-circle-chevron-down"} fa-circle-chevron-down hover:animate-pulse text-2xl text-neutral-600 cursor-pointer dark:text-slate-50
+          ${
+            toggle ? "fa-circle-chevron-up" : "fa-circle-chevron-down"
+          } fa-circle-chevron-down hover:animate-pulse text-2xl text-neutral-600 cursor-pointer dark:text-slate-50
        `}
         ></i>
       </div>

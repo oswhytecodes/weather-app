@@ -23,14 +23,14 @@ export const SearchBar = () => {
   return (
     <section className="SEARCH-BAR py-4">
       <div className="flex flex-col self-start">
-        <form onSubmit={handleSubmit} className="">
+        <form onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
             className="border-[1px] shadow border-neutral-200 py-2 px-2 relative
              rounded max-w-[12em] md:max-w-[20em]"
             type="text"
             value={input}
-            placeholder="Search location..."
+            placeholder="Search city..."
           />
           <button
             type="submit"
