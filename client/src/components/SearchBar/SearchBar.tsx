@@ -1,25 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchData } from "../../redux/WeatherSlice";
-import { setInput } from "../../redux/WeatherSlice";
-
-type InputValue = {
-  value: string;
-};
-type SubmitValue = {
-  handleSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { fetchData, setInput } from "../../redux/WeatherSlice";
 
 export const SearchBar = () => {
   const dispatch = useAppDispatch();
   const input = useAppSelector((state) => state.weather.input);
+  const error = useAppSelector((state) => state.weather.error)
 
   // DATA FOR THE INPUT/SEARCH
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(fetchData(input));
-    dispatch(setInput(""));
+    {dispatch(setInput(""))};
   };
   
   // React.ChangeEvent<HTMLFormElement>
@@ -42,7 +35,7 @@ export const SearchBar = () => {
           <button
             type="submit"
             onClick={(event: React.MouseEvent<HTMLElement>) => handleSubmit}
-            className="absolute right-14 top-10"
+            className="absolute right-10 top-10"
             aria-label="right align"
           >
             <i className="fa-solid text-gray-600 fa-magnifying-glass"></i>

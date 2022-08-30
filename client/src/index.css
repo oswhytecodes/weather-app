@@ -9,7 +9,8 @@
   /* outline: solid 1px red; */
 }
 body {
-  background:  bottom url('./images/bg.jpg') no-repeat;
+  background: no-repeat url("./images/bg.jpg");
+  background-size: cover;
 }
 section {
   width: 100%;

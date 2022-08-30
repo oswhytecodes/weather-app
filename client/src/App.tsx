@@ -1,10 +1,8 @@
 import "./index.css";
 import { Header } from "./components/Navigation/Header";
-import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Weather } from "./components/Weather/Weather";
 import { Footer } from "./components/Navigation/Header";
 
-import { useState, useEffect } from "react";
 function App() {
   return (
     <div className="App h-screen flex flex-col justify-between">
