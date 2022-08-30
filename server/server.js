@@ -28,8 +28,8 @@ app.get("/:city", async (req, res, next) => {
     next(err);
   }
 });
-// unhandle requests get sent back to react
-app.get('/', (req, res) => {
+// unhandled requests will get sent back to react
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 })
 
