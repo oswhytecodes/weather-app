@@ -1,52 +1,53 @@
 import { useAppSelector } from "../../redux/hooks";
 import Assets from "../../modules/Assets.json";
+import { ColorKey, ColorType, COLORS } from "../../modules/types";
 import LogoIcon from "/icons/cloud-sun-rain.svg";
 import { SearchBar } from "../SearchBar/SearchBar";
+import dateFormat, { masks } from "dateformat";
 
 // HEADER AND FOOTER COMPONENT
-
-const colors = Assets.colors;
 // return the color that matches the weather description
-const returnVal = (obj: any, val: any) => {
-  let y = obj[val];
-  return y;
-};
-let headerColor = "#C0B3BC";
+const returnVal = (obj: ColorType, val: ColorKey) => obj[val];
 
 export const Header = () => {
-  const desc = useAppSelector((state) =>
-    state.weather.data.weather.map((desc) => desc.main)
-  );
+  const loading = useAppSelector((state) => state.weather);
   const temperature = useAppSelector((state) => state.weather.data.main.temp);
-  const { loading } = useAppSelector((state) => state.weather);
-  if (loading && !temperature) {
-    headerColor = "#C0B3BC";
-  } else if (desc[0] !== "default") {
-    headerColor = returnVal(Assets.colors, desc);
-  }
+  const weatherDescription = useAppSelector(
+    (state) => state.weather.data.weather.map((desc) => desc.main)[0]
+  );
+
+  // refresh page
   const refresh = () => {
     window.location.reload();
   };
 
   return (
     <header
-      style={{ backgroundColor: `${headerColor}` }}
+      style={{
+        backgroundColor:
+          weatherDescription !== "default"
+            ? returnVal(COLORS, weatherDescription)
+            : "#C0B3BC",
+      }}
       className="HEADER cursor-pointer px-6 py-4 gap-4 flex justify-between items-center hover:bg-opacity-10 "
     >
       <div className="flex">
         <div className="hidden md:block">
           <p
-            className=" uppercase font-bold 
-        tracking-widest text-neutral-200
-        text-3xl
-         dark:text-neutral-900 pr-4"
+            onClick={refresh}
+            className="uppercase font-bold tracking-widest text-neutral-200 text-3xl dark:text-neutral-900 pr-4"
           >
             rainorshine
           </p>
         </div>
-
-        <img className="block md:hidden" src={LogoIcon} alt="" />
-        <button onClick={refresh}></button>
+        <button>
+          <img
+            onClick={refresh}
+            className="block md:hidden"
+            src={LogoIcon}
+            alt="Rainorshine Logo"
+          />
+        </button>
       </div>
       <div>
         <SearchBar />
@@ -56,23 +57,26 @@ export const Header = () => {
 };
 // FOOTER
 export const Footer = () => {
-  const description = useAppSelector((state) =>
-    state.weather.data.weather.map((desc) => desc.main)
-  );
+  const loading = useAppSelector((state) => state.weather);
   const temperature = useAppSelector((state) => state.weather.data.main.temp);
-  const { loading } = useAppSelector((state) => state.weather);
-
-  if (loading && !temperature) {
-    headerColor = "#C0B3BC";
-  } else if (description[0] !== "default") {
-    headerColor = returnVal(Assets.colors, description);
-  }
+  const weatherDescription = useAppSelector(
+    (state) => state.weather.data.weather.map((desc) => desc.main)[0]
+  );
+  const now = new Date();
+  const todaysDate = dateFormat(now, "ddd, mmm dS yyyy. \n  h:MM TT");
   return (
     <footer
-      style={{ backgroundColor: `${headerColor}` }}
-      className="FOOTER py-3 flex justify-center"
+      style={{
+        backgroundColor:
+          weatherDescription !== "default"
+            ? returnVal(COLORS, weatherDescription)
+            : "#C0B3BC",
+      }}
+      className="FOOTER py-3 flex flex-col justify-center items-center"
     >
-      <div className="flex text-2xl gap-4 p-2">
+      <div className="text-center text-xs">{todaysDate}</div>
+
+      <div className="flex text-2xl gap-4 p-2 pt-3">
         <a href="https://github.com/oswhytecodes" aria-label="github link">
           {" "}
           <i
