@@ -1,15 +1,15 @@
 # weather-app
 
-A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
-
-Built with Vite, React, Typescript, Redux and Tailwind
-
 Project was inspired by Konstantin Münster via a Medium article on organizing a React project
 
 The [article](https://konstantinmuenster.medium.com/how-to-plan-and-organize-a-react-project-by-building-a-weather-app-95175b11bd01) gives an overview
 of how to plan a React project. How to organize your components with the folder structure
 
-A very fun project, I was able to dive into Redux, manipulate data, etc
+A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
+
+Built with Vite, React, Typescript, Redux and Tailwind
+
+The API is being called with NodeJS and Express
 
 ## Clone Project
 
