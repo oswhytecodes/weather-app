@@ -9,10 +9,6 @@ const apiURL = "https://api.openweathermap.org/data/2.5/weather";
 const apiKEY = process.env.VITE_APP_WEATHER_API_KEY;
 
 app.use(cors());
-
-// Serve Node the files for build
-
-// app.use(express.static(path.resolve(__dirname, "../client/dist")));
 // api call
 app.get("/:city", async (req, res, next) => {
   const city = req.params.city;
@@ -30,12 +26,13 @@ app.get("/:city", async (req, res, next) => {
     next(err);
   }
 });
-
-// unhandled requests will get sent back to react
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-// });
-
 app.listen(PORT, () => {
   console.log("Server started on port 8000");
 });
+
+// // Serve Node the files for build
+// app.use(express.static(path.resolve(__dirname, "../client/dist")));
+// // unhandled requests will get sent back to react
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+// });

@@ -20,8 +20,6 @@ const initialState: InitialState = {
   input: "",
 };
 
-// https://main.d1dwer87xdq3xi.amplifyapp.com/
-
 // axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
