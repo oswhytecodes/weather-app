@@ -9,6 +9,7 @@ const apiURL = "https://api.openweathermap.org/data/2.5/weather";
 const apiKEY = process.env.VITE_APP_WEATHER_API_KEY;
 
 app.use(cors());
+// app.use(express.static("dist"));
 // Serve Node the files for build
 app.use(express.static(path.resolve(__dirname, '../client/dist')))
 // api call

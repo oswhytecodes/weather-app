@@ -18,7 +18,6 @@ export const Icon = () => {
   return (
     <div className="WEATHER-ICON">
       <img src={t} className="md:w-32 w-24 h-fit object-center" alt={t} />
-      <img src={t} className="w-32 h-fit object-center" alt={t} />
     </div>
   );
 };
