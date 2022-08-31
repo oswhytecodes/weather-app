@@ -12,7 +12,7 @@ app.use(cors());
 
 // Serve Node the files for build
 
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+// app.use(express.static(path.resolve(__dirname, "../client/dist")));
 // api call
 app.get("/:city", async (req, res, next) => {
   const city = req.params.city;
@@ -32,9 +32,9 @@ app.get("/:city", async (req, res, next) => {
 });
 
 // unhandled requests will get sent back to react
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log("Server started on port 8000");

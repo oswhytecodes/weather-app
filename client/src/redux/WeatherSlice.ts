@@ -20,11 +20,13 @@ const initialState: InitialState = {
   input: "",
 };
 
+// https://main.d1dwer87xdq3xi.amplifyapp.com/
+
 // axios
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
   async (city: string, { rejectWithValue }) => {
-    const apiURL = `http://localhost:8000/${city}`;
+    const apiURL = `https://main.d1dwer87xdq3xi.amplifyapp.com/${city}`;
     const response = await axios.get(apiURL);
     if (response.data.cod !== 200) {
       return rejectWithValue(response.data.message);
