@@ -1,16 +1,13 @@
 import React from "react";
-// import { useSelector } from "react-redux";
-// typescript refactor
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchData } from "../../redux/WeatherSlice";
-import data from "../../Assets.json";
-import Preview from "/icons/Preview.svg";
+import data from "../../modules/Assets.json";
 
 export const Icon = () => {
- const temp = useAppSelector((state) => state.weather.data.main.temp);
- const desc = useAppSelector((state) =>
-   state.weather.data.weather.map((x) => x.main)
- );
+  const temp = useAppSelector((state) => state.weather.data.main.temp);
+  const desc = useAppSelector((state) =>
+    state.weather.data.weather.map((x) => x.main)
+  );
   const rejected = useAppSelector((state) => state.weather.loading);
   //  return the image that matches the weather description
   const returnVal = (obj: any, val: any) => {
@@ -19,7 +16,8 @@ export const Icon = () => {
   };
   let t = returnVal(data.icons, desc);
   return (
-    <div>
+    <div className="WEATHER-ICON">
+      <img src={t} className="md:w-32 w-24 h-fit object-center" alt={t} />
       <img src={t} className="w-32 h-fit object-center" alt={t} />
     </div>
   );

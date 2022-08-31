@@ -21,10 +21,10 @@ export const Weather = () => {
   if (error) cardSection = <Error />;
   return (
     <section
-      className="WEATHER-CONTAINER shadow-xl border-[.6px] border-neutral-300
+      className="WEATHER-CONTAINER shadow-xl border-[.2px] border-neutral-300 bg-slate-100 dark:text-slate-500
          rounded-md flex-col gap-10 mt-4 mb-12"
     >
-      <div className=""> {cardSection}</div>
+      <div> {cardSection}</div>
     </section>
   );
 };

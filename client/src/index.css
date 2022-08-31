@@ -8,15 +8,13 @@
   box-sizing: border-box;
   /* outline: solid 1px red; */
 }
-.App {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+body {
+  background: no-repeat url("./images/bg.jpg");
+  background-size: cover;
 }
 section {
   width: 100%;
   max-width: 35em;
   margin: 0 auto;
-  padding: 0 1em;
+  /* padding: 0 1em; */
 }

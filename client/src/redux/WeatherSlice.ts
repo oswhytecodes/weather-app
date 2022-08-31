@@ -1,32 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-
-type InitialState = {
-  data: {
-    main: { temp: any; feels_like: number; humidity: number };
-    cod: any;
-    message: string;
-    weather: [{ main: string }];
-    name: string;
-    id: number;
-    // See More
-    sys: { sunrise: number ; sunset: number  };
-  };
-  city: string;
-  loading: "idle" | "pending" | "succeeded" | "failed";
-  error: boolean;
-  input: string;
-};
+import { InitialState } from "../modules/types";
 
 const initialState: InitialState = {
   data: {
     main: { temp: null, feels_like: 0, humidity: 0 },
     message: "",
     cod: 0,
-    weather: [{ main: "" }],
+    weather: [{ main: "default" }],
     name: "",
     id: 0,
+    dt: 0,
     sys: { sunrise: 0, sunset: 0 },
+    timezone: 0,
   },
   city: "",
   loading: "idle",
@@ -38,10 +24,8 @@ const initialState: InitialState = {
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
   async (city: string, { rejectWithValue }) => {
-    const apiKEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
-    const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-    const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-    const response = await axios.get(url);
+    const apiURL = `http://localhost:8000/${city}`;
+    const response = await axios.get(apiURL);
     if (response.data.cod !== 200) {
       return rejectWithValue(response.data.message);
     }
