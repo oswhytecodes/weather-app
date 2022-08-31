@@ -22,7 +22,7 @@ npm run dev
 #### Screnshot of UI
 
 <img width="500" alt="Screen Shot 2022-07-27 at 9 06 52 AM" 
-src="./public/images/homepage.png">
+src="./client/public/images/homepage.png">
 
 <img width="500" alt="Screen Shot 2022-07-27 at 9 06 52 AM" 
-src="./public/images/UI.png">
+src="./client/public/images/UI.png">
