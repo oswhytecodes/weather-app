@@ -8,10 +8,7 @@
   box-sizing: border-box;
   /* outline: solid 1px red; */
 }
-body {
-  background: no-repeat url("./public/images/bg.jpg");
-  background-size: cover;
-}
+
 section {
   width: 100%;
   max-width: 35em;
