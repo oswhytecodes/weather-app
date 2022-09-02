@@ -24,7 +24,7 @@ const initialState: InitialState = {
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
   async (city: string, { rejectWithValue }) => {
-    const apiURL = `http://weatherapp-env.eba-9ekcmhwg.us-east-1.elasticbeanstalk.com/${city}`;
+    const apiURL = `api/${city}`;
     const response = await axios.get(apiURL);
     if (response.data.cod !== 200) {
       return rejectWithValue(response.data.message);

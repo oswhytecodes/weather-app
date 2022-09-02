@@ -1,1 +1,1 @@
-/esg/api/* http://weatherapp-env.eba-9ekcmhwg.us-east-1.elasticbeanstalk.com/:splat 200
+/api/* http://weatherapp-env.eba-9ekcmhwg.us-east-1.elasticbeanstalk.com/:splat 200
