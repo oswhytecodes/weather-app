@@ -9,7 +9,7 @@
   /* outline: solid 1px red; */
 }
 body {
-  background: no-repeat url("./images/bg.jpg");
+  background: no-repeat url("./public/images/bg.jpg");
   background-size: cover;
 }
 section {
