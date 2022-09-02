@@ -4,6 +4,7 @@ import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
 import dateFormat, { masks } from "dateformat";
 
+
 export const Card = () => {
 
   // weather data from slice

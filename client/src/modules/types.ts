@@ -1,10 +1,13 @@
 import Assets from "./Assets.json";
 
 export const COLORS = Assets.colors;
+export const ICONS = Assets.icons;
 
 export type ColorType = typeof COLORS;
-
 export type ColorKey = keyof ColorType;
+
+export type IconType = typeof ICONS;
+export type IconKey = keyof IconType;
 
 // WeatherSLice
 export type InitialState = {
@@ -12,7 +15,7 @@ export type InitialState = {
     main: { temp: any; feels_like: number; humidity: number };
     cod: any;
     message: string;
-    weather: [{ main: ColorKey }];
+    weather: [{ main: ColorKey | IconKey }];
     name: string;
     id: number;
     dt: number;

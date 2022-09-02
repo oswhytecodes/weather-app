@@ -1,23 +1,25 @@
 import React from "react";
+import { ICONS, IconKey, IconType } from "../../modules/types";
+import { useAppSelector } from "../../redux/hooks";
 
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import data from "../../modules/Assets.json";
+const returnVal = (obj: IconType, val: IconKey) => obj[val];
 
 export const Icon = () => {
   const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const desc = useAppSelector((state) =>
-    state.weather.data.weather.map((x) => x.main)
+  const weatherDescription = useAppSelector(
+    (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
   const rejected = useAppSelector((state) => state.weather.loading);
   //  return the image that matches the weather description
-  const returnVal = (obj: any, val: any) => {
-    let y = obj[val];
-    return y;
-  };
-  let t = returnVal(data.icons, desc);
+
+  let weatherIcon = returnVal(ICONS, weatherDescription);
   return (
     <div className="WEATHER-ICON">
-      <img src={t} className="md:w-32 w-24 h-fit object-center" alt={t} />
+      <img
+        src={weatherIcon}
+        className="md:w-32 w-24 h-fit object-center"
+        alt={weatherIcon}
+      />
     </div>
   );
 };

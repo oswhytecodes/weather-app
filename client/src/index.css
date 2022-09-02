@@ -6,12 +6,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* outline: solid 1px red; */
 }
-
 section {
   width: 100%;
   max-width: 35em;
   margin: 0 auto;
-  /* padding: 0 1em; */
 }

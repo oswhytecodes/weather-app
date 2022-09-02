@@ -63,7 +63,6 @@ export const Footer = () => {
     (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
   const now = new Date();
-  // const todaysDate = dateFormat(now, "ddd, mmm dS yyyy. \n  h:MM TT");
   return (
     <footer
       style={{
