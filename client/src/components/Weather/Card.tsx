@@ -104,7 +104,7 @@ export const Card = () => {
 
       <div className="m-auto mb-4 flex flex-col items-center justify-center pt-10 ">
         {!toggle && (
-          <p className="text-[.2em] uppercase text-neutral-500">See More</p>
+          <p className="text-[.6em] uppercase text-neutral-500">See More</p>
         )}
         <i
           onClick={seeMoreData}

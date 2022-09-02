@@ -76,7 +76,11 @@ export const Footer = () => {
       {/* <div className="text-center text-xs">{todaysDate}</div> */}
 
       <div className="flex text-2xl gap-4 p-2 pt-3">
-        <a href="https://github.com/oswhytecodes" aria-label="github link">
+        <a
+          target="_blank"
+          href="https://github.com/oswhytecodes"
+          aria-label="github link"
+        >
           {" "}
           <i
             className="fa-brands fa-github  
@@ -84,6 +88,7 @@ export const Footer = () => {
           ></i>
         </a>
         <a
+          target="_blank"
           href="https://www.linkedin.com/in/orincywhyte/"
           aria-label="linkedin link"
         >
@@ -94,6 +99,7 @@ export const Footer = () => {
           ></i>
         </a>
         <a
+          target="_blank"
           href="https://www.instagram.com/oswhytecodes/"
           aria-label="instagram link"
         >
@@ -104,6 +110,7 @@ export const Footer = () => {
           ></i>
         </a>
         <a
+          target="_blank"
           href="https://www.youtube.com/channel/UC_3pNhSyYoZk3Z201kZvgsg"
           aria-label="youtube link"
         >
