@@ -18,5 +18,5 @@
     "jsx": "react-jsx"
   },
   "include": ["src", "public/images/Footer.tsx", "server/server.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./src/tsconfig.node.json" }]
 }
