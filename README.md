@@ -2,7 +2,7 @@
 
 ## Project Name & Pitch
 
-Rain or Shine
+Rain or Shine [Visit the weather app](https://oswhytecodes-weatherapp.netlify.app/)
 
 A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
 
@@ -21,8 +21,12 @@ of how to plan a React project. How to organize your components with the folder 
 
 ## Project Status
 
-This project is currently waiting for the backend to be hosted to connect to the frontend :)
-
+Sept 1. 2022
+Successfully launched the  app, the backend works with the front end :))
+Currently working on building
+ - "night time" feature where the UI gets dark based on the time of the city
+ - a current location feature that will require a second API call
+ 
 ## Project Screen Shot(s)
 
 <img width="500" alt="Screen Shot 2022-07-27 at 9 06 52 AM" 
