@@ -1,5 +1,3 @@
-import React from "react";
-import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData, setInput } from "../../redux/WeatherSlice";
 

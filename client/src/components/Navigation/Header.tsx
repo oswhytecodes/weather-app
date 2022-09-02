@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../redux/hooks";
-import Assets from "../../modules/Assets.json";
 import { ColorKey, ColorType, COLORS } from "../../modules/types";
 import LogoIcon from "/icons/cloud-sun-rain.svg";
 import { SearchBar } from "../SearchBar/SearchBar";
