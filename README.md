@@ -68,18 +68,25 @@ localhost:3000/
 ## Reflection
 
 - What was the context for this project?
+
   This was a side project to practice the features in a small frontend project.
+
   Using Redux to hold the state, and NodeJS to hide the API key and call the weather API
 
 - What did you set out to build?
+
   I set out to build a simple weather app to showcase my design and programmingn skills.
 
 - Why was this project challenging and therefore a really good learning experience?
+
   The weather app was challenging as I am know to Typescript, Redux, NodeJS and hosting the backend.
+
   Learning about epoch and utc time and converting these numbers to the local time of the cities searched.
 
 - What were some unexpected obstacles?
+
   I never ever imagined working with NodeJS and hosting a backend server. I am still in awe of the amount of work I put into building this project out.
 
 - What tools did you use to implement this project?
+
   The React App was built with Vite, installed Tailwind, Typescript, Redux, DateFormat, Axios, Node JS, Express, cors etc
