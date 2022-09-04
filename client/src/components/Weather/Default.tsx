@@ -1,4 +1,3 @@
-import React from 'react'
 import prev from "/images/prev.svg";
 
 export const Default = () => {

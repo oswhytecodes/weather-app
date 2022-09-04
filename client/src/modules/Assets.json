@@ -1,11 +1,7 @@
 {
-  "_usedFont": "NTR",
-  "_colorDesc": {
+  "colorDesc": {
     "lilac": "#C0B3BC",
-    "red": "#EF9A9A",
-    "blue": "#18B2D8",
-    "yellow": "#FCC418",
-    "grey": "#D9DEDF"
+    "grey": "#434e6b"
   },
   "colors": {
     "default": "#C0B3BC",
@@ -18,6 +14,9 @@
     "Drizzle": "#18B2D8",
     "Clouds": "#87CBDE"
   },
+  "images": {
+    "Night": "/icons/Night.svg"
+  },
   "icons": {
     "Rain": "/icons/Rain.svg",
     "Mist": "/icons/Rain.svg",
@@ -25,6 +24,7 @@
     "Clouds": "/icons/Clouds.svg",
     "Clear": "/icons/Clear.svg",
     "Snow": "/icons/Snow.svg",
-    "Thunderstorm": "/icons/Thunderstorm.svg"
+    "Thunderstorm": "/icons/Thunderstorm.svg",
+    "default": "/icons/Preview.svg"
   }
 }

@@ -14,6 +14,7 @@ const initialState: InitialState = {
     sys: { sunrise: 0, sunset: 0 },
     timezone: 0,
   },
+
   city: "",
   loading: "idle",
   error: false,
@@ -24,6 +25,7 @@ const initialState: InitialState = {
 export const fetchData = createAsyncThunk(
   "weather/fetchData",
   async (city: string, { rejectWithValue }) => {
+    // const apiURL = `http://weatherapp-env.eba-9ekcmhwg.us-east-1.elasticbeanstalk.com/${city}`;
     const apiURL = `api/${city}`;
     const response = await axios.get(apiURL);
     if (response.data.cod !== 200) {
@@ -32,6 +34,7 @@ export const fetchData = createAsyncThunk(
     return response.data;
   }
 );
+
 // Weather Slice
 const WeatherSlice = createSlice({
   name: "weather",

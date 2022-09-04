@@ -4,15 +4,16 @@ import { fetchData, setInput } from "../../redux/WeatherSlice";
 export const SearchBar = () => {
   const dispatch = useAppDispatch();
   const input = useAppSelector((state) => state.weather.input);
-  const error = useAppSelector((state) => state.weather.error)
 
   // DATA FOR THE INPUT/SEARCH
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(fetchData(input));
-    {dispatch(setInput(""))};
+    {
+      dispatch(setInput(""));
+    }
   };
-  
+
   // React.ChangeEvent<HTMLFormElement>
   const handleChange = (e: any) => {
     dispatch(setInput(e.target.value));
@@ -25,7 +26,7 @@ export const SearchBar = () => {
           <input
             onChange={handleChange}
             className="border-[1px] shadow border-neutral-200 py-2 px-2 relative
-             rounded max-w-[12em] md:max-w-[20em]"
+             rounded  focus:w-[20em] md:max-w-full"
             type="text"
             value={input}
             placeholder="Search city..."

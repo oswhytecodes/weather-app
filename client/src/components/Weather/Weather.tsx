@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "../../redux/hooks";
 import { Loader } from "./Loader";
 import { Card } from "./Card";
@@ -6,11 +5,7 @@ import { Default } from "./Default";
 import { Error } from "./Error";
 
 export const Weather = () => {
-  const temp = useAppSelector((state) => state.weather.data.main.temp);
-  const { name, cod } = useAppSelector((state) => state.weather.data);
-  const { loading, error, data, input } = useAppSelector(
-    (state) => state.weather
-  );
+  const { loading, error, data } = useAppSelector((state) => state.weather);
 
   let cardSection = <Default />;
 

@@ -29,10 +29,3 @@ app.get("/:city", async (req, res, next) => {
 app.listen(PORT, () => {
   console.log("Server started on port 8000");
 });
-
-// // Serve Node the files for build
-// app.use(express.static(path.resolve(__dirname, "../client/dist")));
-// // unhandled requests will get sent back to react
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-// });
