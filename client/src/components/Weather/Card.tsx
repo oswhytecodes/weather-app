@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData } from "../../redux/WeatherSlice";
 import { Icon } from "./Icon";
-import dateFormat, { masks } from "dateformat";
-
+import {
+  epochToMilliSecondsConverter,
+  timeZoneConverter,
+  utcConverter,
+} from "../../modules/functions";
 
 export const Card = () => {
-
   // weather data from slice
   const dispatch = useAppDispatch();
   const name = useAppSelector((state) => state.weather.data.name);
@@ -19,38 +21,28 @@ export const Card = () => {
   const { temp, humidity, feels_like } = useAppSelector(
     (state) => state.weather.data.main
   );
-  
-  // Date Converter
-  const epochToMilliSecondsConverter = (n: number) => {
-    return new Date(n * 1000);
-  };
-  const timeZoneConverter = (n: number) => {
-    return n + timezone;
-  };
-  const utcConverter = (n: Date | string) => {
-    return dateFormat(n, "h:MM TT", true);
-  };
+
   // timezone
-  const convertEpochToMS = timeZoneConverter(dt);
-  const UTC_Converter =
-    epochToMilliSecondsConverter(convertEpochToMS).toUTCString();
-  const UTCTime = utcConverter(UTC_Converter);
+  const timezoneCalculation = timeZoneConverter(dt, timezone);
+  const utcCalculation =
+    epochToMilliSecondsConverter(timezoneCalculation).toUTCString();
+  const localTime = utcConverter(utcCalculation);
 
   // convert sunrise time
-  let sunriseConverter = timeZoneConverter(sunrise);
-  let sunriseDate = epochToMilliSecondsConverter(sunriseConverter);
-  let sunriseDateX = utcConverter(sunriseDate);
+  let sunriseEpochTime = timeZoneConverter(sunrise, timezone);
+  let sunriseUtcTime = epochToMilliSecondsConverter(sunriseEpochTime);
+  let localSunriseTime = utcConverter(sunriseUtcTime);
 
   // convert sunset time
-  let sunsetConverter = timeZoneConverter(sunset);
-  let sunsetDate = epochToMilliSecondsConverter(sunsetConverter);
-  let sunsetDateX = utcConverter(sunsetDate);
+  let sunsetUnixTime = timeZoneConverter(sunset, timezone);
+  let sunsetUtcTime = epochToMilliSecondsConverter(sunsetUnixTime);
+  let localSunsetTime = utcConverter(sunsetUtcTime);
 
   // return temp with degree // not sure why temp wont bypass the type
   let toFahrenheit = Math.floor(temp);
   let feelsLikeTemp = Math.floor(feels_like);
 
-  // Weather is coming back as imperial - Fahrenheit convert to celsius
+  // Weather is coming back as imperial (Fahrenheit) - convert to celsius
   const toCelsius = Math.floor((toFahrenheit - 32) * (5 / 9));
 
   //DATA FOR THE CARDS
@@ -68,7 +60,7 @@ export const Card = () => {
   };
   const toggleFahrenheit = () => {
     setToggleWeather((prev) => !prev);
-  }
+  };
 
   return (
     <div className=" bg-slate-50 transition-all">
@@ -79,7 +71,7 @@ export const Card = () => {
         >
           {name}
         </h1>
-        <p>{UTCTime}</p>
+        <p>{localTime}</p>
       </div>
 
       <div>
@@ -135,13 +127,13 @@ export const Card = () => {
           <div className="text-center">
             <p className="font-bold">Sunrise</p>
             <p className="md:text-xl text-md text-gray-500 dark:text-slate-50">
-              {sunriseDateX}
+              {localSunriseTime}
             </p>
           </div>
           <div className="text-center">
             <p className="font-bold">Sunset</p>
             <p className="md:text-xl text-md text-gray-500 dark:text-slate-50">
-              {sunsetDateX}
+              {localSunsetTime}
             </p>
           </div>
         </div>
