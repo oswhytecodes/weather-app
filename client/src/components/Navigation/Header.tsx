@@ -1,33 +1,48 @@
 import { useAppSelector } from "../../redux/hooks";
 import { ColorKey, ColorType, COLORS } from "../../modules/types";
-import LogoIcon from "/icons/cloud-sun-rain.svg";
 import { SearchBar } from "../SearchBar/SearchBar";
-// import dateFormat, { masks } from "dateformat";
+import LogoIcon from "/icons/cloud-sun-rain.svg";
+import { timeZoneConverter } from "../../modules/functions";
 
 // HEADER AND FOOTER COMPONENT
 // return the color that matches the weather description
-const returnVal = (obj: ColorType, val: ColorKey) => obj[val];
 
 export const Header = () => {
-  const loading = useAppSelector((state) => state.weather);
-  const temperature = useAppSelector((state) => state.weather.data.main.temp);
+  const { timezone, dt } = useAppSelector((state) => state.weather.data);
+  const { sunrise, sunset } = useAppSelector((state) => state.weather.data.sys);
   const weatherDescription = useAppSelector(
     (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
+  let headerColor = "#434e6b";
+  const returnVal = (obj: ColorType, val: ColorKey) => obj[val];
 
+  // timezone
+  const timezoneCalculation = timeZoneConverter(dt, timezone);
+  // convert sunrise time
+  let sunriseUnixTime = timeZoneConverter(sunrise, timezone);
+  // convert sunset time
+  let sunsetUnixTime = timeZoneConverter(sunset, timezone);
+  // check the time of day
+  if (
+    // nighttime
+    timezoneCalculation <= sunriseUnixTime &&
+    timezoneCalculation >= sunsetUnixTime
+  ) {
+    headerColor = "#C0B3BC";
+  } else if (
+    // daytime
+    timezoneCalculation <= sunsetUnixTime &&
+    timezoneCalculation >= sunriseUnixTime
+  ) {
+    headerColor = returnVal(COLORS, weatherDescription);
+  }
   // refresh page
   const refresh = () => {
     window.location.reload();
   };
-
   return (
     <header
-      style={{
-        backgroundColor:
-          weatherDescription !== "default"
-            ? returnVal(COLORS, weatherDescription)
-            : "#C0B3BC",
-      }}
+      style={{ backgroundColor: `${headerColor}` }}
       className="HEADER cursor-pointer px-6 py-4 gap-4 flex justify-between items-center hover:bg-opacity-10 "
     >
       <div className="flex">
@@ -56,24 +71,41 @@ export const Header = () => {
 };
 // FOOTER
 export const Footer = () => {
-  const loading = useAppSelector((state) => state.weather);
-  const temperature = useAppSelector((state) => state.weather.data.main.temp);
+  const { timezone, dt } = useAppSelector((state) => state.weather.data);
+  const { sunrise, sunset } = useAppSelector((state) => state.weather.data.sys);
   const weatherDescription = useAppSelector(
     (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
-  const now = new Date();
+  let headerColor = "#434e6b";
+  const returnVal = (obj: ColorType, val: ColorKey) => obj[val];
+
+  // timezone
+  const timezoneCalculation = timeZoneConverter(dt, timezone);
+  // convert sunrise time
+  let sunriseUnixTime = timeZoneConverter(sunrise, timezone);
+  // convert sunset time
+  let sunsetUnixTime = timeZoneConverter(sunset, timezone);
+  // check the time of day
+  if (
+    // nighttime
+    timezoneCalculation <= sunriseUnixTime &&
+    timezoneCalculation >= sunsetUnixTime
+  ) {
+    headerColor = "#C0B3BC";
+  } else if (
+    // daytime
+    timezoneCalculation <= sunsetUnixTime &&
+    timezoneCalculation >= sunriseUnixTime
+  ) {
+    headerColor = returnVal(COLORS, weatherDescription);
+  }
   return (
     <footer
       style={{
-        backgroundColor:
-          weatherDescription !== "default"
-            ? returnVal(COLORS, weatherDescription)
-            : "#C0B3BC",
+        backgroundColor: `${headerColor}`,
       }}
       className="FOOTER py-3 flex flex-col justify-center items-center"
     >
-      {/* <div className="text-center text-xs">{todaysDate}</div> */}
-
       <div className="flex text-2xl gap-4 p-2 pt-3">
         <a
           target="_blank"
