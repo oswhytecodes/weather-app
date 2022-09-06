@@ -75,7 +75,7 @@ export const Card = () => {
       </div>
 
       <div>
-        <div className="flex flex-wrap gap-12 justify-center  items-start md:mt-6 ">
+        <div className="flex flex-wrap gap-12 justify-center items-center md:mt-6 ">
           <div className="flex flex-col justify-between text-left gap-1 ">
             <p
               onClick={toggleFahrenheit}
