@@ -23,8 +23,15 @@ of how to plan a React project. How to organize your components with the folder 
 
 Sept 1. 2022
 Successfully launched the  app, the backend works with the front end :))
+
+
+Sept 3. 2022
+"night time" feature where the UI gets dark based on the loca time of the city called
+
+Sept 6. 2022
+added a second api call to the server.js
+
 Currently working on building
- - "night time" feature where the UI gets dark based on the time of the city
  - a current location feature that will require a second API call
  
 ## Project Screen Shot(s)

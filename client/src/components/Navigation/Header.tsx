@@ -5,7 +5,6 @@ import LogoIcon from "/icons/cloud-sun-rain.svg";
 import { timeZoneConverter } from "../../modules/functions";
 
 // HEADER AND FOOTER COMPONENT
-// return the color that matches the weather description
 
 export const Header = () => {
   const { timezone, dt } = useAppSelector((state) => state.weather.data);
@@ -13,6 +12,7 @@ export const Header = () => {
   const weatherDescription = useAppSelector(
     (state) => state.weather.data.weather.map((desc) => desc.main)[0]
   );
+  // return the color that matches the weather description
   let headerColor = "#434e6b";
   const returnVal = (obj: ColorType, val: ColorKey) => obj[val];
 
@@ -37,9 +37,8 @@ export const Header = () => {
     headerColor = returnVal(COLORS, weatherDescription);
   }
   // refresh page
-  const refresh = () => {
-    window.location.reload();
-  };
+  const refresh = () => window.location.reload();
+
   return (
     <header
       style={{ backgroundColor: `${headerColor}` }}

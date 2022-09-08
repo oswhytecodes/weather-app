@@ -1,7 +1,7 @@
 import { ICONS, IconKey, IconType } from "../../modules/types";
 import { useAppSelector } from "../../redux/hooks";
 import { timeZoneConverter } from "../../modules/functions";
-import NightIcon from '/images/Night.svg'
+import NightIcon from "/images/Night.svg";
 
 export const Icon = () => {
   const weatherDescription = useAppSelector(
@@ -12,13 +12,10 @@ export const Icon = () => {
 
   // timezone
   const timezoneCalculation = timeZoneConverter(dt, timezone);
-
   // convert sunrise time
   let sunriseUnixTime = timeZoneConverter(sunrise, timezone);
-
   // convert sunset time
   let sunsetUnixTime = timeZoneConverter(sunset, timezone);
-
   let weatherIcon = NightIcon;
   let returnVal = (obj: IconType, val: IconKey) => obj[val];
 
@@ -27,7 +24,7 @@ export const Icon = () => {
     timezoneCalculation <= sunriseUnixTime &&
     timezoneCalculation >= sunsetUnixTime
   ) {
-    return weatherIcon 
+    return weatherIcon;
   } else if (
     timezoneCalculation <= sunsetUnixTime &&
     timezoneCalculation >= sunriseUnixTime

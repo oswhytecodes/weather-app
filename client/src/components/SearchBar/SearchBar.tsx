@@ -1,9 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData, setInput } from "../../redux/WeatherSlice";
+import { useEffect, useState } from "react";
 
 export const SearchBar = () => {
   const dispatch = useAppDispatch();
   const input = useAppSelector((state) => state.weather.input);
+  const [suggestions, setSuggestions] = useState([]);
+
+  
 
   // DATA FOR THE INPUT/SEARCH
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -17,6 +21,7 @@ export const SearchBar = () => {
   // React.ChangeEvent<HTMLFormElement>
   const handleChange = (e: any) => {
     dispatch(setInput(e.target.value));
+
   };
 
   return (
@@ -44,3 +49,17 @@ export const SearchBar = () => {
     </section>
   );
 };
+
+
+
+  // // api call
+  // useEffect(() => {
+  //   fetch("https://api.foursquare.com/v3/places/search?near=${city}/", {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: "fsq3GXUPRhaFdQ5OjxV89mbkUPfAZLWuZUlVEAxnd9JXu/E=",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setSuggestions(data.results));
+  // }, []);
