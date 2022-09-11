@@ -3,79 +3,112 @@ const express = require("express"),
   app = express(),
   PORT = process.env.PORT || 8000,
   cors = require("cors"),
-  axios = require("axios"),
   { performance } = require("perf_hooks"),
   fs = require("fs"),
-  apiKEY = process.env.VITE_APP_WEATHER_API_KEY;
+  {
+    fetchCityData,
+    mapReturnObject,
+    secondsBetween,
+  } = require("./server-functions");
 app.use(cors());
 
-const now = new Date();
-const currentTime = `${now.getHours()}:${now.getMinutes()}`;
-// rate-limiting
-const userData = {};
-const timeBeforeApiCall = new Date().getMinutes();
-// caching
-const cityName = {};
-console.log("Current time : " + currentTime, timeBeforeApiCall);
-// api call for weather data
-app.get("/:city", async (req, res, next) => {
-  // api
-  const apiURL = "https://api.openweathermap.org/data/2.5/weather";
-  const city = req.params.city;
-  const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-  // rate-limiting
-  const ip = req.socket.remoteAddress;
-  const timeOfApiCall = new Date().getMinutes();
+// CACHING
+const cacheData = {};
+const cachedDurationSeconds = 60;
+// check for a city in the cache data
+const isCityCached = (city) => cacheData.hasOwnProperty(city);
 
-  // performance check
-  const performanceStartTime = performance.now();
+const updateCacheData = async (city) => {
+  const fetchedData = await fetchCityData(city);
+  cacheData[city] = {
+    timeFetched: new Date().getTime(),
+    data: fetchedData,
+  };
+};
 
-  try {
-    const result = await axios.get(url, {
-      method: "GET",
-      url: "apiURL",
-      headers: {
-        "API-KEY": apiKEY,
-      },
-    });
-    // api call
-    res.json({
-      main: {
-        temp: result.data.main.temp,
-        feels_like: result.data.main.feels_like,
-        humidity: result.data.main.humidity,
-      },
-      message: result.data.message,
-      cod: result.data.cod,
-      weather: result.data.weather,
-      name: result.data.name,
-      id: result.data.id,
-      dt: result.data.dt,
-      sys: {
-        sunrise: result.data.sys.sunrise,
-        sunset: result.data.sys.sunset,
-      },
-      timezone: result.data.timezone,
-    });
-  } catch (err) {
-    next(err);
-  }
+// RATE LIMITING
+let userStats = {};
+const lastCheckedMinute = new Date().getMinutes();
 
-  const performanceEndTime = performance.now();
-  // performance calculation
-  const performanceTime = (performanceEndTime - performanceStartTime).toFixed(
-    4
+const isUserLimited = (ip) => userStats.hasOwnProperty(ip);
+// check time frame of ip address
+const checkLastCall = () => {
+  const currentMinute = new Date().getMinutes();
+  console.log(
+    "Last Checked Minute : " + lastCheckedMinute,
+    "Current Minute : " + currentMinute
   );
-  const line = `\n[User ${ip} made a call for ${city} at ${timeOfApiCall}. Data came back in ${performanceTime} milliseconds]`;
+  if (currentMinute != lastCheckedMinute) {
+    // if the minute has change, clear the object
+    userStats = {};
+    lastCheckedMinute = currentMinute;
+  }
+};
 
-  // access log
-  fs.appendFile("./access-log.txt", line, (err) => {
-    if (err) {
-      console.log("There is an error");
-    } else {
-      console.log(line);
+// API CALL FOR WEATHER DATA
+app.get("/:city", async (req, res, next) => {
+  // ip address
+  checkLastCall();
+  const ip = req.socket.remoteAddress;
+  let userIpRequestCount = userStats[ip];
+  if (!isUserLimited(ip)) {
+    userIpRequestCount = 0;
+  }
+  userIpRequestCount++;
+
+  // check the user count
+  if (userIpRequestCount > 6) {
+    res.json({ error: "Exceeded Limit, " });
+  } else {
+    try {
+      // start of performance check
+      const performanceStartTime = performance.now();
+
+      // api
+      const city = req.params.city;
+
+      if (isCityCached(city)) {
+        // check if data is stale
+        const cacheDate = new Date(cacheData[city].timeFetched);
+        const now = new Date();
+        const timeDiff = secondsBetween(cacheDate, now);
+
+        if (timeDiff > cachedDurationSeconds) {
+          // go fetch data from api to replace stale data
+          await updateCacheData(city);
+        }
+      } else {
+        // go fetch city from api for the first time to populate object
+        await updateCacheData(city);
+      }
+
+      // data from api call
+      res.json(mapReturnObject(cacheData[city].data));
+
+      // end of performance check
+      const performanceEndTime = performance.now();
+
+      // log data to txt file
+
+      const timeOfApiCall = new Date();
+      const performanceTime = (
+        performanceEndTime - performanceStartTime
+      ).toFixed(4);
+      const accessLog = `\n[ - ${ip} - user made a call for ${city} at  -- ${timeOfApiCall}. Data came back in -- ${performanceTime} milliseconds -- ]`;
+      fs.appendFile("./access-log.txt", accessLog, (err) => {
+        if (err) {
+          console.log("There is an error");
+        } else {
+          console.log(accessLog);
+        }
+      });
+      // error handling
+    } catch (err) {
+      const timeOfApiCall = new Date();
+      const errorLog = `\n This ${err} occured at ${timeOfApiCall}`;
+      fs.appendFile("./error-log.txt", errorLog);
     }
-  });
+  }
 });
 
 // weather call for geocode data
