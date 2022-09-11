@@ -1,11 +1,16 @@
 import "./index.css";
-import { Header } from "./components/Navigation/Header";
+import { useEffect } from "react";
+import { Header, Footer } from "./components/Navigation/Header";
 import { Weather } from "./components/Weather/Weather";
-import { Footer } from "./components/Navigation/Header";
-
+import DayBG from "/images/bgDay.jpg";
 function App() {
+
+
   return (
-    <div className="App h-screen flex flex-col justify-between">
+    <div
+      style={{ backgroundImage: `url(${DayBG})` }}
+      className="App h-screen flex flex-col justify-between"
+    >
       <div className="flex flex-col justify-start">
         <Header />
         <div className="mx-3 mt-6">

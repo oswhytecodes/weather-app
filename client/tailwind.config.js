@@ -1,12 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
-      backgroundImage : {
-        'hero': "url('./public/images/bg.jpg)"
-      }
+      backgroundImage: {
+        dayTime: "url('/images/bgDay.jpg)",
+        nightTime: "url('/images/bgNight.png)",
+      },
     },
   },
   plugins: [],
