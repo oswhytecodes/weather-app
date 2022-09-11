@@ -22,8 +22,7 @@ of how to plan a React project. How to organize your components with the folder 
 ## Project Status
 
 Sept 1. 2022
-Successfully launched the  app, the backend works with the front end :))
-
+Successfully launched the app, the backend works with the front end :))
 
 Sept 3. 2022
 "night time" feature where the UI gets dark based on the loca time of the city called
@@ -32,8 +31,18 @@ Sept 6. 2022
 added a second api call to the server.js
 
 Currently working on building
- - a current location feature that will require a second API call
- 
+- a current location feature that will require a second API call
+- geolocation to make the search bar more dynamic
+
+Sept 10, 2022
+SECURING THE SERVER
+
+- Added access log for each api call
+- Recording the IP address and performance time
+- Added a log for all errors
+- Rate-limiting the user to prevent overwhelming calls to the API
+- Caching data, improving the performance of calls significantly
+
 ## Project Screen Shot(s)
 
 <img width="500" alt="Screen Shot 2022-07-27 at 9 06 52 AM" 
