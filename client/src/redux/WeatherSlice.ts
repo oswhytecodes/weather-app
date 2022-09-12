@@ -38,8 +38,8 @@ export const fetchData = createAsyncThunk(
 export const fetchCityCode = createAsyncThunk(
   "weather/fetchData",
   async (citycode: string, { rejectWithValue }) => {
-    const apiURL = `http:localhost:8000/${citycode}`;
-    // const apiURL = `api/${citycode}`;
+//     const apiURL = `http:localhost:8000/${citycode}`;
+    const apiURL = `api/${citycode}`;
     const response = await axios.get(apiURL);
     if (!response) {
       console.log("no worky");
