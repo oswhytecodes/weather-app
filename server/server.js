@@ -5,10 +5,15 @@ const express = require("express"),
   cors = require("cors"),
   { performance } = require("perf_hooks"),
   fs = require("fs"),
+  // function imports
   {
     fetchCityData,
     mapReturnObject,
     secondsBetween,
+    rateLimitError,
+    checkLastCall,
+    lastCheckedMinute,
+    isCityCached,
   } = require("./server-functions");
 app.use(cors());
 
@@ -16,7 +21,6 @@ app.use(cors());
 const cacheData = {};
 const cachedDurationSeconds = 60;
 // check for a city in the cache data
-const isCityCached = (city) => cacheData.hasOwnProperty(city);
 
 const updateCacheData = async (city) => {
   const fetchedData = await fetchCityData(city);
@@ -28,37 +32,26 @@ const updateCacheData = async (city) => {
 
 // RATE LIMITING
 let userStats = {};
-const lastCheckedMinute = new Date().getMinutes();
 
-const isUserLimited = (ip) => userStats.hasOwnProperty(ip);
 // check time frame of ip address
-const checkLastCall = () => {
-  const currentMinute = new Date().getMinutes();
-  console.log(
-    "Last Checked Minute : " + lastCheckedMinute,
-    "Current Minute : " + currentMinute
-  );
-  if (currentMinute != lastCheckedMinute) {
-    // if the minute has change, clear the object
-    userStats = {};
-    lastCheckedMinute = currentMinute;
-  }
-};
+const isUserLimited = (ip) => userStats.hasOwnProperty(ip);
 
 // API CALL FOR WEATHER DATA
 app.get("/:city", async (req, res, next) => {
   // ip address
   checkLastCall();
   const ip = req.socket.remoteAddress;
-  let userIpRequestCount = userStats[ip];
+  // is ip address saved to userStats?
   if (!isUserLimited(ip)) {
-    userIpRequestCount = 0;
+    userStats[ip] = 0;
   }
-  userIpRequestCount++;
+  // increase count on user
+  userStats[ip]++;
+  let userIpRequestCount = userStats[ip];
 
-  // check the user count
-  if (userIpRequestCount > 6) {
-    res.json({ error: "Exceeded Limit, " });
+  if (userIpRequestCount > 5) {
+    console.log(rateLimitError);
+    res.json(rateLimitError);
   } else {
     try {
       // start of performance check
@@ -66,6 +59,7 @@ app.get("/:city", async (req, res, next) => {
 
       // api
       const city = req.params.city;
+      // check the user count
 
       if (isCityCached(city)) {
         // check if data is stale
@@ -89,24 +83,32 @@ app.get("/:city", async (req, res, next) => {
       const performanceEndTime = performance.now();
 
       // log data to txt file
-
       const timeOfApiCall = new Date();
       const performanceTime = (
         performanceEndTime - performanceStartTime
       ).toFixed(4);
-      const accessLog = `\n[ - ${ip} - user made a call for ${city} at  -- ${timeOfApiCall}. Data came back in -- ${performanceTime} milliseconds -- ]`;
+
+      // log all api calls
+      const accessLog = `\n[-- ${timeOfApiCall} -- ${ip} -- user made a call for ${city}. Data came back in  ${performanceTime} milliseconds. -- ]`;
       fs.appendFile("./access-log.txt", accessLog, (err) => {
         if (err) {
-          console.log("There is an error");
+          console.log(err);
         } else {
           console.log(accessLog);
         }
       });
+
+      // log rate-limiting
+      const currentMinute = new Date().getMinutes();
+      const rateLimitLog = `\n -- ${ip} called ${city}, this is the ${userIpRequestCount} call from this user. -- \nThe time is ${timeOfApiCall}, Last Checked Minute : ${lastCheckedMinute}, Current Minute : ${currentMinute} --`;
+      // create/update file
+      fs.appendFile("./rate-limit-log.txt", rateLimitLog, (err) => {});
+
       // error handling
     } catch (err) {
       const timeOfApiCall = new Date();
       const errorLog = `\n This ${err} occured at ${timeOfApiCall}`;
-      fs.appendFile("./error-log.txt", errorLog);
+      fs.appendFile("./error-log.txt", errorLog, () => {});
     }
   }
 });
@@ -125,7 +127,7 @@ app.get("/:citycode", async (req, res, next) => {
         "API-KEY": apiKEY,
       },
     });
-    res.json(result.data);
+    res.json(result.data.name);
   } catch (err) {
     next(err);
   }
