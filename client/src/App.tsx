@@ -9,7 +9,7 @@ function App() {
   return (
     <div
       style={{ backgroundImage: `url(${DayBG})` }}
-      className="App h-screen flex flex-col justify-between"
+      className="App bg-no-repeat bg-cover h-screen flex flex-col justify-between"
     >
       <div className="flex flex-col justify-start">
         <Header />

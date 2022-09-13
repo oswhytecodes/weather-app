@@ -1,13 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchData, setInput } from "../../redux/WeatherSlice";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 export const SearchBar = () => {
   const dispatch = useAppDispatch();
   const input = useAppSelector((state) => state.weather.input);
-  const [suggestions, setSuggestions] = useState([]);
-
-  
 
   // DATA FOR THE INPUT/SEARCH
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,3 +60,15 @@ export const SearchBar = () => {
   //     .then((res) => res.json())
   //     .then((data) => setSuggestions(data.results));
   // }, []);
+
+// snackbar
+  // const [open, setOpen] = useState(false);
+  // const handleClose = (
+  //   event?: React.SyntheticEvent | Event,
+  //   reason?: string
+  // ) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };

@@ -21,12 +21,22 @@ export type InitialState = {
     dt: number;
     sys: { sunrise: number; sunset: number };
     timezone: number;
+    error: string
   };
   city: string;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error: boolean;
   input: string;
+  response: number;
 };
+
+export type cityCodeState = {
+  cityname: string;
+  loading: string;
+  error: boolean;
+  input: string;
+};
+
 // Search Bar
 export type InputValue = {
   value: string;

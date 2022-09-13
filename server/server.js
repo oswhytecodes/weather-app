@@ -9,7 +9,6 @@ const express = require("express"),
   {
     mapReturnObject,
     secondsBetween,
-    rateLimitError,
   } = require("./server-functions");
 app.use(cors());
 const axios = require("axios"),
@@ -73,7 +72,9 @@ app.get("/:city", async (req, res, next) => {
   userStats[ip]++;
   let userIpRequestCount = userStats[ip];
   if (userStats[ip] > 5) {
-    res.json(rateLimitError.error);
+    res
+      .status(429)
+      .send("You have exceeded your search limit. Try again in a minute.");
   } else {
     try {
       // start of performance check
