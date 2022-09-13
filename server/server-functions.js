@@ -1,20 +1,3 @@
-require("dotenv").config();
-const axios = require("axios"),
-  apiKEY = process.env.VITE_APP_WEATHER_API_KEY,
-  apiURL = "https://api.openweathermap.org/data/2.5/weather";
-
-// api call
-const fetchCityData = async (city) => {
-  const url = `${apiURL}?q=${city}&appid=${apiKEY}&units=imperial`;
-  const result = await axios.get(url, {
-    method: "GET",
-    headers: {
-      "API-KEY": apiKEY,
-    },
-  });
-  return result;
-};
-
 // mapped object
 const mapReturnObject = (input) => {
   return {
@@ -37,11 +20,6 @@ const mapReturnObject = (input) => {
   };
 };
 
-// CACHING
-const cacheData = {};
-// check for a city in the cache data
-const isCityCached = (city) => cacheData.hasOwnProperty(city);
-
 // rate limit object
 const rateLimitError = {
   error: "You have exceeded your search limit. Try again in a minute.",
@@ -57,28 +35,9 @@ function secondsBetween(dtStart, dtEnd) {
   return Math.abs(diff);
 }
 
-let lastCheckedMinute = new Date().getMinutes();
-
-const checkLastCall = () => {
-  const currentMinute = new Date().getMinutes();
-  console.log(
-    "Last Checked - " + lastCheckedMinute,
-    "Current- " + currentMinute
-  );
-  if (currentMinute != lastCheckedMinute) {
-    // if the minute has change, clear the object
-    userStats = {};
-    lastCheckedMinute = currentMinute;
-  }
-};
-
 // export functions
 module.exports = {
-  fetchCityData,
   mapReturnObject,
   secondsBetween,
   rateLimitError,
-  checkLastCall,
-  lastCheckedMinute,
-  isCityCached,
 };
