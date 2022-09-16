@@ -99,7 +99,7 @@ localhost:3000/
 
 - Why was this project challenging and therefore a really good learning experience?
 
-  The weather app was challenging as I am know to Typescript, Redux, NodeJS and hosting the backend.
+  The weather app was challenging as I am now using Typescript, Redux, NodeJS and hosting the backend on AWS.
 
   Learning about epoch and utc time and converting these numbers to the local time of the cities searched.
 
