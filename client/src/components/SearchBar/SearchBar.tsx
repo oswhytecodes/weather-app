@@ -47,20 +47,6 @@ export const SearchBar = () => {
   );
 };
 
-
-
-  // // api call
-  // useEffect(() => {
-  //   fetch("https://api.foursquare.com/v3/places/search?near=${city}/", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: "fsq3GXUPRhaFdQ5OjxV89mbkUPfAZLWuZUlVEAxnd9JXu/E=",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setSuggestions(data.results));
-  // }, []);
-
 // snackbar
   // const [open, setOpen] = useState(false);
   // const handleClose = (
