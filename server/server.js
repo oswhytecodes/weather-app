@@ -141,23 +141,3 @@ app.get("/:city", async (req, res, next) => {
 app.listen(PORT, () => {
   console.log("Server started on port 8000");
 });
-
-// weather call for geocode data
-// app.get("/:citycode", async (req, res, next) => {
-//   const apiURL = "http://api.openweathermap.org/geo/1.0/direct";
-
-//   const citycode = req.params.citycode;
-//   const url = `${apiURL}?q=${citycode}&appid=${apiKEY}&limit=5`;
-//   try {
-//     const result = await axios.get(url, {
-//       method: "GET",
-//       url: "apiURL",
-//       headers: {
-//         "API-KEY": apiKEY,
-//       },
-//     });
-//     res.json(result.data.name);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
