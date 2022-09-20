@@ -76,34 +76,4 @@ const WeatherSlice = createSlice({
 export default WeatherSlice.reducer;
 export const { setInput } = WeatherSlice.actions;
 
-//     {
-//   builder.addCase(fetchCityCode.pending, (state) => {
-//     state.loading = "pending";
-//   }),
-//     builder.addCase(fetchCityCode.fulfilled, (state, action) => {
-//       state.cityname = action.payload;
-//       state.loading = "idle";
-//       state.error = false;
-//     }),
-//     builder.addCase(
-//       fetchCityCode.rejected,
-//       (state: cityCodeState, action) => {
-//         state.loading = "idle";
-//         state.error = true;
-//       }
-//     );
-// },
 
-// city name api call
-// export const fetchCityCode = createAsyncThunk(
-//   "weather/fetchCityCode",
-//   async (citycode: string, { rejectWithValue }) => {
-//     const apiURL = `http:localhost:8000/${citycode}`;
-//     // const apiURL = `api/${citycode}`;
-//     const response = await axios.get(apiURL);
-//     if (!response) {
-//       console.log("no worky");
-//     }
-//     return response.data;
-//   }
-// );
