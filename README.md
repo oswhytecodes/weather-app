@@ -1,8 +1,6 @@
 # weather-app
 
-## Project Name & Pitch
-
-Rain or Shine 
+## Rain or Shine 
 
 A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
 
