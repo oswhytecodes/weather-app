@@ -2,7 +2,7 @@
 
 ## Project Name & Pitch
 
-Rain or Shine [Visit the weather app](https://oswhytecodes-weatherapp.netlify.app/)
+Rain or Shine 
 
 A lite Weather App using [The Open Weather Map API](https://openweathermap.org/)
 
