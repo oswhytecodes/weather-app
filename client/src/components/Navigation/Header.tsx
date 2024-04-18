@@ -107,7 +107,7 @@ export const Footer = () => {
     >
       <div >
 
-        <div className="flex flex-col justify-center items-center gap-3"
+        <div className="flex flex-col justify-center items-center"
         >
           <p className="text-lg">Built with ❤️ by
             <a
