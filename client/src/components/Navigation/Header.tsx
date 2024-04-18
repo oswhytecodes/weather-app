@@ -107,7 +107,7 @@ export const Footer = () => {
     >
       <div className="flex text-2xl gap-4 p-2 pt-3">
 
-        <div className="flex gap-3"
+        <div className="flex flex-col justify-center items-center"
         >
           <p className="text-lg">Built with ❤️ by
             <a
@@ -115,7 +115,7 @@ export const Footer = () => {
               target="_blank"
               href="https://www.orincywhyte.com/"
               aria-label="website link"
-            >Orincy Whyte Designs
+            > Orincy Whyte Designs
             </a>
           </p>
           <div>
