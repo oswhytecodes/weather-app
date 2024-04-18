@@ -106,54 +106,67 @@ export const Footer = () => {
       className="FOOTER py-3 flex flex-col justify-center items-center"
     >
       <div className="flex text-2xl gap-4 p-2 pt-3">
-        <p>Built with ❤️ by <a target="_blank"
-                             href="https://www.orincywhyte.com/"
-                               aria-label="website link"
-                             >Orincy Whyte Designs</a></p>
-        <a
-          target="_blank"
-          href="https://github.com/oswhytecodes"
-          aria-label="github link"
+
+        <div className="flex gap-3"
         >
-          {" "}
-          <i
-            className="fa-brands fa-github  
+          <p className="text-lg">Built with ❤️ by
+            <a
+              className="hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
+              target="_blank"
+              href="https://www.orincywhyte.com/"
+              aria-label="website link"
+            >Orincy Whyte Designs
+            </a>
+          </p>
+          <div>
+            <a
+              target="_blank"
+              href="https://github.com/oswhytecodes"
+              aria-label="github link"
+            >
+              {" "}
+              <i
+                className="fa-brands fa-github  
              hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
-          ></i>
-        </a>
-        <a
-          target="_blank"
-          href="https://www.linkedin.com/in/orincywhyte/"
-          aria-label="linkedin link"
-        >
-          {" "}
-          <i
-            className="fa-brands fa-linkedin-in
+              ></i>
+            </a>
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/in/orincywhyte/"
+              aria-label="linkedin link"
+            >
+              {" "}
+              <i
+                className="fa-brands fa-linkedin-in
             hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
-          ></i>
-        </a>
-        <a
-          target="_blank"
-          href="https://www.instagram.com/oswhytecodes/"
-          aria-label="instagram link"
-        >
-          {" "}
-          <i
-            className="fa-brands fa-instagram
+              ></i>
+            </a>
+            <a
+              target="_blank"
+              href="https://www.instagram.com/oswhytecodes/"
+              aria-label="instagram link"
+            >
+              {" "}
+              <i
+                className="fa-brands fa-instagram
             hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
-          ></i>
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/channel/UC_3pNhSyYoZk3Z201kZvgsg"
-          aria-label="youtube link"
-        >
-          {" "}
-          <i
-            className="fa-brands fa-youtube
+              ></i>
+            </a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/channel/UC_3pNhSyYoZk3Z201kZvgsg"
+              aria-label="youtube link"
+            >
+              {" "}
+              <i
+                className="fa-brands fa-youtube
            hover:text-neutral-800 text-[#e5e5e5] hover:scale-150 hover:animate-pulse transition"
-          ></i>
-        </a>
+              ></i>
+            </a>
+          </div>
+        </div>
+
+
       </div>
     </footer>
   );
