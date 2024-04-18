@@ -105,9 +105,9 @@ export const Footer = () => {
       }}
       className="FOOTER py-3 flex flex-col justify-center items-center"
     >
-      <div className="flex text-2xl gap-4 p-2 pt-3">
+      <div >
 
-        <div className="flex flex-col justify-center items-center"
+        <div className="flex flex-col justify-center items-center gap-3"
         >
           <p className="text-lg">Built with ❤️ by
             <a
@@ -118,7 +118,7 @@ export const Footer = () => {
             > Orincy Whyte Designs
             </a>
           </p>
-          <div>
+          <div className="flex text-2xl gap-4 p-2 pt-3">
             <a
               target="_blank"
               href="https://github.com/oswhytecodes"
